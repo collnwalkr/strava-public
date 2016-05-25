@@ -3,9 +3,10 @@ Project Name
 
 ## Team Members
 
-1. Jeffrey Heer (jheer)
-2. Michael Correll (mcorrell)
-3. Jane Hoffswell (jhoffs)
+1. Collin Walker (cwalker2)
+2. Yitao Wang (yitaow)
+3. Li Zeng(lizeng)
+4. Si Xie (Ricki)(rickixie) 
 
 ## Breakdown
 
