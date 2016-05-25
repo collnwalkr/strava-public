@@ -5,7 +5,7 @@ Project Name
 
 1. Collin Walker (cwalker2)
 2. Yitao Wang (yitaow)
-3. Li Zeng(lizeng)
+3. Li Zeng (lizeng)
 4. Si Xie (rickixie) 
 
 ## Breakdown
