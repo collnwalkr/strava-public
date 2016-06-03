@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.19.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <h1>STRAVA</h1>
+    <h4>cse 512 final project</h4>
+</header>
+
+<article class='flex-wrapper'>
+    <!-- LEFT COLUMN -->
+    <div id='left-column' class='flex-wrapper'>
+        
+        <div id='controls' class='flex-item'> 
+            <div id='control-checkbox'> 
+                <h1>checkbox</h1>
+            </div>
+
+
+            <div id='control-timeline'> 
+                <h1>timeline</h1>
+            </div>
+        </div>
+ 
+
+        <div id='lists' class='flex-item'> 
+            <div id='list-athlete-activity'> 
+                <h1>athlete</h1>
+            </div>
+
+
+            <div id='list-segment'> 
+                <h1>segments</h1>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div id='right-column'>
+        <div id='map'></div>
+    </div>
+</article>
+
+
+
+
+</body>
+<script src="js/map.js"></script>
+</html>
