@@ -1,9 +1,8 @@
 
-
 mapboxgl.accessToken = 'pk.eyJ1IjoiY29sbG53YWxrciIsImEiOiJjaW95d2FmOTcwMGNmejBtNWw3ZHRuanQzIn0.0ykYaYqPm-P6WgXabZEN_g';
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/mapbox/dark-v8', //stylesheet location
+    style: 'mapbox://styles/mapbox/outdoors-v9', //stylesheet location
     center: [-122.17, 47.65], // starting position
     zoom: 10 // starting zoom
 });
@@ -22,6 +21,17 @@ for(var i = 0; i < array.length; i++){
 }
 **/
 
+var flip_lat_long = function(arr){
+    var flipped_array = [];
+    for(var i = 0; i < arr.length; i++){
+        var flipped_array_element = arr[i].reverse();
+
+        flipped_array.push(flipped_array_element);
+    }
+
+    return flipped_array;
+};
+
 map.on('load', function () {
 
 
@@ -36,7 +46,6 @@ map.on('load', function () {
             }
         }
     });
-
 
     map.addLayer({
         "id": "heat-map",
@@ -53,4 +62,110 @@ map.on('load', function () {
             "line-blur":4
         }
     });
+
+    // GET ACTIVITY DATA
+    d3.json('data/small_club_activity_5_30.json', function(err, activity_data) {
+        // GET COORDINATES DATA
+        d3.json('data/small_club_coordinates.json', function(err, coordinates_data) {
+
+            //console.log(activity_data);
+            //console.log(coordinates_data);
+
+            var activity_collection = {
+                'type': 'FeatureCollection',
+                'features':[]
+            };
+
+            activity_data.forEach(function(activity,i) {
+                var poly = activity.map.summary_polyline;
+                if(poly){
+                    var lat_long = polyline.decode(poly);
+                    var activity_time = Math.round(new Date(activity.start_date_local).getTime()/1000);
+
+                    var activity_element = {
+                        'type': 'feature',
+                        'properties': {
+                            'time': activity_time
+                        },
+                        'geometry':{
+                            "type": "LineString",
+                            "coordinates": flip_lat_long(lat_long)
+                        }
+
+                    };
+
+                    console.log(activity_element);
+                    activity_collection.features.push(activity_element);
+
+                } // END IF
+            }); // END forEach
+
+            console.log(activity_collection);
+
+            map.addSource("heat-map-1", {
+                "type": "geojson",
+                "data": activity_collection
+            });
+            map.addLayer({
+                "id": "heat-map-1",
+                "type": "line",
+                "source": "heat-map-1",
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "#FF0037",
+                    "line-width": 8,
+                    "line-opacity": 0.45,
+                    "line-blur":4
+                }
+            });
+
+
+                /**
+            activity_data.forEach(function(activity,i){
+                var poly = activity.map.summary_polyline;
+                console.log(poly);
+                if(poly){
+                    var lat_long = polyline.decode(poly);
+
+                    map.addSource("heat-map-" + i, {
+                        "type": "geojson",
+                        "data": {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": flip_lat_long(lat_long)
+                            }
+                        }
+                    });
+
+                    map.addLayer({
+                        "id": "heat-map-" + i,
+                        "type": "line",
+                        "source": "heat-map-" + i,
+                        "layout": {
+                            "line-join": "round",
+                            "line-cap": "round"
+                        },
+                        "paint": {
+                            "line-color": "#FF0037",
+                            "line-width": 8,
+                            "line-opacity": 0.45,
+                            "line-blur":4
+                        }
+                    });
+
+
+                }
+
+
+            });
+            **/
+
+        }); //END d3 activity
+
+    }); //END d3 coordinates
 });
