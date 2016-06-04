@@ -81,7 +81,21 @@ article.flex-wrapper{
     align-content: stretch;
     -webkit-align-items: stretch;
     -ms-flex-align: stretch;
-    align-items: stretch;}
+    align-items: stretch;
+}
+
+#ul-athletes{
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li.li-athlete {
+    padding: 10px 40px 10px 10px;
+}
+
+span.span_count {
+    float: right;
+}
 
 #right-column{
 
