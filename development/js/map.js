@@ -117,8 +117,12 @@ map.on('load', function () {
     }); //END d3 coordinates
 });
 
-var grid = turf.hex([-121, 46, -120.5, 49], .1);
-makeHexGrid();
+var bbox = [-96,31,-84,40];
+var cellWidth = 50;
+var units = 'miles';
+
+//var grid = turf.hexGrid(bbox, cellWidth, units);
+//makeHexGrid();
 
 function makeHexGrid(){
 
@@ -275,10 +279,12 @@ function createCollection(activity_data, athletes){
     }); // END forEach
 }
 
+console.log('hello');
 toggleLayer('Heat Map', 'heat-map');
 //toggleLayer('Museums', 'museums');
 
 function toggleLayer(name, id) {
+    console.log('here');
     var label = document.createElement('label');
     label.innerHTML = name;
 
