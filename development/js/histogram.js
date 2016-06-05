@@ -1,3 +1,4 @@
+var current_activities = [];
 // Test bring in club activity data
 d3.json("data/small_club_activity_6_4.json", function(data){
   // Convert start_date into a Date variable
@@ -17,15 +18,17 @@ d3.json("data/small_club_activity_6_4.json", function(data){
     d.date = formatDate.parse(d.start_date);
     //d.show_date = showFormat(d.start_date);
   });
-  console.log("Parsed Date looks like:", data[0].date);
 
+  console.log(data[0]);
 
   var activity = crossfilter(data),
       all = activity.groupAll(),
       date = activity.dimension(function(d) { return d.date;}),  
       dates = date.group(d3.time.day);
       date_to_show = activity.dimension(function(d) { return d.date;}),  
-      dates_to_show = date_to_show.group(d3.time.day);
+      dates_to_show = date_to_show.group(d3.time.day),
+      activity_id = activity.dimension(function(d) { return d.id}),
+      activity_ids = activity_id.group();
   var charts = [
           barChart()
               .dimension(date)
@@ -39,8 +42,14 @@ d3.json("data/small_club_activity_6_4.json", function(data){
   var chart = d3.selectAll(".chart")
         .data(charts)
         .each(function(chart) { chart.on("brush", renderAll).on("brushend", renderAll); });
-  console.log(dates_to_show.all());
+
+  
+
+  // Initially, all bars selected
   charts[0].filter(null);
+
+  current_athletes = activity_ids.all();
+
   d3.selectAll("#start")
       .text(showFormat(new Date(2016, 4, 20)));
 
@@ -60,6 +69,8 @@ d3.json("data/small_club_activity_6_4.json", function(data){
     var start = -1, end = -1;
     var s_date = "", e_date = "";
     var dict_group = dates_to_show.all();
+    // Initialize current activities list at every render
+    current_activities = [];
     for (var i = 0; i < dict_group.length; i++){
       if ((start == -1) && (dict_group[i].value != 0)){
         start = 0;
@@ -85,6 +96,16 @@ d3.json("data/small_club_activity_6_4.json", function(data){
     }
     d3.selectAll("#start").text(s_date);
     d3.selectAll("#end").text(e_date);
+
+    // Return a list of selected activities
+    var top_n = activity_id.groupAll().value();
+    if (top_n != 0){
+      var selected_activity = activity_ids.top(top_n);      
+      for(var i = 0; i < selected_activity.length; i++) {
+        current_activities.push( selected_activity[i].key );
+      }
+    }
+
   }
   
   window.filter = function(filters) {
@@ -96,7 +117,7 @@ d3.json("data/small_club_activity_6_4.json", function(data){
     charts[i].filter(null);
     renderAll();
   };
-  //然后要写什么？看crossfilter的说明
+  
   console.log(data[0].start_date);
   console.log(data[0].show_date);
 
