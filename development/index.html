@@ -16,7 +16,7 @@
 
 <header>
     <h1>STRAVA</h1>
-    <h4>cse 512 final project</h4>
+    <h4>CSE 512 final project</h4>
 </header>
 
 <article class='flex-wrapper'>
@@ -29,8 +29,10 @@
             </div>
 
 
-            <div id='control-timeline'> 
-                <h1>timeline</h1>
+            <div id='control-timeline' class='chart'> 
+                <div class="title" id = "date-display">
+                    Date: <span id = "start">-</span> - <span id = "end">-</span>
+                </div>
             </div>
         </div>
  
@@ -62,4 +64,7 @@
 
 </body>
 <script src="js/map.js"></script>
+<script src="js/crossfilter.v1.js"></script>
+<script src="js/d3.v3.js"></script>
+<script src="js/histogram.js"></script>
 </html>

@@ -1,12 +1,12 @@
 body { 
-	margin:0; 
-	padding:0; 
-	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  margin:0; 
+  padding:0; 
+  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 }
 
 header{
-	display: inline-block;
-	width: 100%;
+  display: inline-block;
+  width: 100%;
     position: relative;
     z-index: 500;
     height: 80px;
@@ -16,26 +16,26 @@ header{
 }
 
 header h1{
-	color: orange;
-	display: inline-block;
-	margin-right: 20px;
+  color: orange;
+  display: inline-block;
+  margin-right: 20px;
 }
 
 header h4{
-	display: inline;
+  display: inline;
 }
 
 .flex-wrapper{
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 article.flex-wrapper{
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	position: absolute;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
@@ -50,21 +50,62 @@ article.flex-wrapper{
     align-self: auto;
 }
 
+.chart {
+  display: inline-block;
+  height: 151px;
+  font: 15px sans-serif;
+  margin-bottom: 20px;
+}
+
+.reset {
+  padding-left: 1em;
+  font-size: smaller;
+  color: #ccc;
+}
+
+.background.bar {
+  fill: #ccc;
+}
+
+.foreground.bar {
+  fill: orange;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font: 8px sans-serif;
+}
+
+.brush rect.extent {
+  fill: orange;
+  fill-opacity: .125;
+}
+
+.brush .resize path {
+  fill: #eee;
+  stroke: #666;
+}
+
 #map { 
-	position:absolute; 
-	top:0; 
-	bottom:0; 
-	width:100%; 
+  position:absolute; 
+  top:0; 
+  bottom:0; 
+  width:100%; 
 }
 
 #left-column{
-	width: 350px;
-	padding-top: 80px;
-	background-color: silver;
+  width: 350px;
+  padding-top: 80px;
+  background-color: white;
 }
 
 #left-column.flex-wrapper{
-	display: -ms-flexbox;
+  display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
@@ -100,11 +141,16 @@ span.span_count {
 #right-column{
 
 }
-
+#start{
+    color: orange;
+}
+#end{
+    color: orange;
+}
 .mapboxgl-ctrl-group.mapboxgl-ctrl {
     margin-top: 100px;
 }
 
 button.mapboxgl-ctrl-icon.mapboxgl-ctrl-compass{
-	display: none;
+  display: none;
 }
