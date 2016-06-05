@@ -7,6 +7,7 @@ var activity_collection = {
     'type': 'FeatureCollection',
     'features':[]
 };
+var map_loaded = false;
 
 var source = new mapboxgl.GeoJSONSource({
     data: activity_collection
@@ -102,6 +103,7 @@ map.on('load', function () {
 
             // Display the heat map
             displayHeatMap(activity_data, athletes);
+            map_loaded = true;
 
             // SORT athletes by activity count
             var sorted_athletes = sort_athletes(athletes);
@@ -115,6 +117,54 @@ map.on('load', function () {
     }); //END d3 coordinates
 });
 
+var grid = turf.hex([-121, 46, -120.5, 49], .1);
+makeHexGrid();
+
+function makeHexGrid(){
+
+     var hexCount = turf.count(grid,activity_collection,'pt_count');
+     var numberBreaks = 6;
+     console.log(hexCount);
+     var jenksbreaks = turf.jenks(hexCount,'pt_count', numberBreaks);
+     var colors = ['#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026'];
+     var transparency = [.3,0.5,0.5,0.5,0.5,0.5];
+     jenksbreaks.forEach(function(element,i){
+         if (i > 0){
+            jenksbreaks[i] = [element, colors[i-1],transparency[i-1]];
+         }
+         else{
+            jenksbreaks[i] = [element, null];
+         }
+     });
+
+     //console.log(grid);
+     console.log(hexCount);
+     //console.log(jenksbreaks);
+     //console.log(activity_collection);
+
+     map.addSource('hexGrid',{
+        "type": "geojson",
+        "data": grid
+     });
+
+     for(var i = 0; i < jenksbreaks.length; i++) {
+         if (i > 0) {
+             map.addLayer({
+                 "id": "hexGrid-" + (i - 1),
+                 "type": "fill",
+                 "source": "hexGrid",
+                 "layout": {},
+                 "paint": {
+                     'fill-color': jenksbreaks[i][1],
+                     'fill-opacity': jenksbreaks[i][2]
+                }
+             }, "airports");
+         }
+     }
+
+
+}
+
 function updateAthletes(athletes){
     var sorted_athletes = sort_athletes(athletes);
     sorted_athletes = sorted_athletes.slice(0,5);
@@ -123,11 +173,14 @@ function updateAthletes(athletes){
 }
 
 function updateHeatMap(activity_data, athletes){
-    activity_collection.features = [];
 
-    createCollection(activity_data, athletes);
+    if(map_loaded){
+        activity_collection.features = [];
 
-    source.setData(activity_collection);
+        createCollection(activity_data, athletes);
+
+        source.setData(activity_collection);
+    }
 
 }
 
