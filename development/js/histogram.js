@@ -1,12 +1,12 @@
 // Test bring in club activity data
-d3.json("data/small_club_activity_5_30.json", function(data){
+d3.json("data/small_club_activity_6_4.json", function(data){
   // Convert start_date into a Date variable
   var formatDate = d3.time.format("%Y-%m-%dT%H:%M:%SZ"),
       formatNumber = d3.format(",d"),
       //formatChange = d3.format("+,d"),
       formatTime = d3.time.format("%I:%M %p");
   // Format the Date variable for display
-  var showFormat = d3.time.format("%B %d");
+  var showFormat = d3.time.format("%B %d, %Y");
   
   var nestByDate = d3.nest()
       .key(function(d) { return d3.time.day(d.date); });
@@ -32,9 +32,9 @@ d3.json("data/small_club_activity_5_30.json", function(data){
               .group(dates)
               .round(d3.time.day.round)
             .x(d3.time.scale()
-              .domain([new Date(2016, 4, 20), new Date(2016, 5, 1)])
-              .rangeRound([0, 12 * 15]))
-              .filter([new Date(2016, 5, 20), new Date(2016, 5, 31)])
+              .domain([new Date(2016, 4, 20), new Date(2016, 5, 6)])
+              .rangeRound([0, 16 * 12]))
+              .filter([new Date(2016, 5, 20), new Date(2016, 6, 5)])
               ];
   var chart = d3.selectAll(".chart")
         .data(charts)
@@ -45,7 +45,7 @@ d3.json("data/small_club_activity_5_30.json", function(data){
       .text(showFormat(new Date(2016, 4, 20)));
 
   d3.selectAll("#end")
-      .text(showFormat(new Date(2016, 4, 31)));
+      .text(showFormat(new Date(2016, 5, 5)));
   renderAll();
 
   // Renders the specified chart or list.

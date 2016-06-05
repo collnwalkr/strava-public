@@ -56,6 +56,9 @@ article.flex-wrapper{
     margin-bottom: 20px;
     margin-top: 50px;
 }
+.title{
+  margin-left: 20px;
+}
 .reset {
   padding-left: 1em;
   font-size: smaller;
