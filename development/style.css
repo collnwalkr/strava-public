@@ -11,14 +11,14 @@ header{
     z-index: 500;
     height: 80px;
     background-color: white;
-    box-shadow: 0 0px 5px #888888;
+    box-shadow: 0 0 5px #888888;
     padding: 0 40px;
 }
 
 header h1{
-  color: orange;
-  display: inline-block;
-  margin-right: 20px;
+	color: #FC4C02;
+	display: inline-block;
+	margin-right: 20px;
 }
 
 header h4{
@@ -51,12 +51,11 @@ article.flex-wrapper{
 }
 
 .chart {
-  display: inline-block;
-  height: 151px;
-  font: 15px sans-serif;
-  margin-bottom: 20px;
+    height: 151px;
+    font: 15px sans-serif;
+    margin-bottom: 20px;
+    margin-top: 50px;
 }
-
 .reset {
   padding-left: 1em;
   font-size: smaller;
@@ -68,7 +67,7 @@ article.flex-wrapper{
 }
 
 .foreground.bar {
-  fill: orange;
+  fill: #FC4C02;
 }
 
 .axis path, .axis line {
@@ -82,7 +81,7 @@ article.flex-wrapper{
 }
 
 .brush rect.extent {
-  fill: orange;
+  fill: #FC4C02;
   fill-opacity: .125;
 }
 
@@ -142,10 +141,10 @@ span.span_count {
 
 }
 #start{
-    color: orange;
+    color: #FC4C02;
 }
 #end{
-    color: orange;
+    color: #FC4C02;
 }
 .mapboxgl-ctrl-group.mapboxgl-ctrl {
     margin-top: 100px;
@@ -153,4 +152,17 @@ span.span_count {
 
 button.mapboxgl-ctrl-icon.mapboxgl-ctrl-compass{
   display: none;
+}
+
+/* CHECKBOXES */
+input[type="checkbox"] {
+    float: left;
+}
+label{
+    float:left;
+}
+
+/* TIME LINE */
+div#control-timeline {
+    clear: both;
 }
