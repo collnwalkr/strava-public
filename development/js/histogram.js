@@ -110,6 +110,9 @@ d3.json("data/small_club_activity_6_4.json", function(data){
       }
     }
 
+    updateHeatMap(g_activity_data, athletes);
+    updateAthletes(athletes);
+
   }
   
   window.filter = function(filters) {
