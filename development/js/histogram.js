@@ -48,13 +48,17 @@ d3.json("data/small_club_activity_6_4.json", function(data){
   // Initially, all bars selected
   charts[0].filter(null);
 
-  current_athletes = activity_ids.all();
+  var initial_activity = activity_ids.all();
+  for(var i = 0; i < initial_activity.length; i++) {
+        current_activities.push( initial_activity[i].key );
+      }
 
   d3.selectAll("#start")
       .text(showFormat(new Date(2016, 4, 20)));
 
   d3.selectAll("#end")
       .text(showFormat(new Date(2016, 5, 5)));
+      
   renderAll();
 
   // Renders the specified chart or list.
@@ -117,7 +121,7 @@ d3.json("data/small_club_activity_6_4.json", function(data){
     charts[i].filter(null);
     renderAll();
   };
-  
+
   console.log(data[0].start_date);
   console.log(data[0].show_date);
 
