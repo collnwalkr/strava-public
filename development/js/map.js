@@ -20,8 +20,8 @@ var bounds = [
 
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/mapbox/light-v9', //stylesheet location
-    //style: 'mapbox://styles/collnwalkr/95e48988', //stylesheet location
+    //style: 'mapbox://styles/mapbox/light-v9', //stylesheet location
+    style: 'mapbox://styles/collnwalkr/cip4euwrx000nbbm5cvz2y1ev', //stylesheet location
     center: [-122.17, 47.65], // starting position
     zoom: 10,// starting zoom
     minZoom: 9,
@@ -104,7 +104,7 @@ map.on('load', function () {
     // GET ACTIVITY DATA
     d3.json('data/small_club_activity_6_4.json', function(err, activity_data) {
         // GET COORDINATES DATA
-        d3.json('data/small_club_coordinates.json', function(err, coordinates_data) {
+        d3.json('data/small_club_api_segment_6_4.json', function(err, coordinates_data) {
 
 
             g_activity_data = activity_data;
@@ -151,10 +151,11 @@ function makeSeattleHexGrid(){
 
     var hexCount = turf.count(grid, activity_collection,'pt_count');
 
-    jenksbreaks = turf.jenks(hexCount,'pt_count', 6);
+    jenksbreaks = turf.jenks(hexCount,'pt_count', 9);
 
-    var colors = ['#000000','#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'];
-    var transparency = [0,0.7,0.6,0.6,0.6,0.6];
+
+    var colors = ['#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'];
+    var transparency = [0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4];
 
 
 
@@ -184,15 +185,16 @@ function plotGrid(jenksbreaks){
                 "layout": {},
                 "paint": {
                     'fill-color': jenksbreaks[i][1],
-                    'fill-opacity': jenksbreaks[i][2]}
-            }, "heat-map");
+                    'fill-opacity': jenksbreaks[i][2]
+                }
+            },'place-neighbourhood');
         }
     }
 
     jenksbreaks.forEach(function(jenksbreak, i) {
         if (i > 0) {
             var filters = ['all', ['<=', 'pt_count', jenksbreak[0]]];
-            if (i > 1) {
+            if (i >= 1) {
                 filters.push(['>', 'pt_count', jenksbreaks[i - 1][0]]);
                 map.setFilter('hexGrid-' + (i - 1), filters);
             }
@@ -266,7 +268,6 @@ function createCollection(activity_data, athletes){
         athletes[athlete].count = 0;
     }
 
-    console.log(athletes);
 
     activity_data.forEach(function(activity) {
         // Retrive polyline property
@@ -301,14 +302,12 @@ function createCollection(activity_data, athletes){
                 }
                 // END athlete count
 
-                for(var j=0; j< coordinate_arr.length - 20; j += 20){
+                for(var j=0; j< coordinate_arr.length - 10; j += 10){
                     // BEGIN make feature
                     var activity_element = {
                         'type': 'Feature',
                         'properties': {
-                            'time': activity_time,
-                            'id': activity_id,
-                            'athlete': athlete
+                            'id': activity_id
                         },
                         'geometry':{
                             "type": "Point",
@@ -333,14 +332,42 @@ function createCollection(activity_data, athletes){
 
 toggleLayer('Heat Map', 'heat-map');
 //toggleLayer('Museums', 'museums');
+toggleHexLayer('Heat Map', 'hexGrid-');
+
+function toggleHexLayer(name, id){
+    var checkbox = document.getElementById('heat-map-id');
+
+    checkbox.onclick = function (e) {
+
+        for(var i = 1; i < jenksbreaks.length; i++) {
+            var layer_id = '' + id + (i -1);
+            var visibility = map.getLayoutProperty(layer_id, 'visibility');
+
+            if (visibility === 'visible') {
+                checkbox.checked = false;
+                map.setLayoutProperty(layer_id, 'visibility', 'none');
+            } else {
+                checkbox.checked = true;
+                map.setLayoutProperty(layer_id, 'visibility', 'visible');
+            }
+        }
+
+
+    };
+
+}
+
+
 
 function toggleLayer(name, id) {
     var label = document.createElement('label');
+
     label.innerHTML = name;
 
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
     checkbox.checked = true;
+    checkbox.id = 'heat-map-id';
 
     label.appendChild(checkbox);
 
@@ -351,10 +378,8 @@ function toggleLayer(name, id) {
         if (visibility === 'visible') {
             checkbox.checked = false;
             map.setLayoutProperty(id, 'visibility', 'none');
-            this.className = '';
         } else {
             checkbox.checked = true;
-            this.className = 'active';
             map.setLayoutProperty(id, 'visibility', 'visible');
         }
     };
