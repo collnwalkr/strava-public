@@ -129,7 +129,7 @@ map.on('load', function () {
     }); //END d3 coordinates
 });
 
-var grid = turf.hexGrid([-122.5, 47.5, -122.1, 47.8], 1, 'miles');
+var grid = turf.hexGrid([-122.45, 47.37, -121.8, 47.9], 1, 'miles');
 
 
 var grid_source = new mapboxgl.GeoJSONSource({
@@ -154,7 +154,7 @@ function makeSeattleHexGrid(){
     jenksbreaks = turf.jenks(hexCount,'pt_count', 6);
 
     var colors = ['#000000','#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'];
-    var transparency = [0,0.6,0.6,0.6,0.6,0.6];
+    var transparency = [0,0.7,0.6,0.6,0.6,0.6];
 
 
 
@@ -253,8 +253,8 @@ function displayHeatMap(activity_data, athletes){
         "paint": {
             "circle-color": "#ff1a1a",
             "circle-radius": 25,
-            "circle-opacity": 0.55,
-            "circle-blur":8
+            "circle-opacity": 0.5,
+            "circle-blur":10
         }
     });
 
