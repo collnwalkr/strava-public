@@ -12,13 +12,13 @@ header{
     height: 80px;
     background-color: white;
     box-shadow: 0 0 5px #888888;
-    padding: 0 40px;
 }
 
 header h1{
 	color: #FC4C02;
 	display: inline-block;
 	margin-right: 20px;
+    margin-left: 40px;
 }
 
 header h4{
@@ -88,6 +88,13 @@ article.flex-wrapper{
   fill-opacity: .125;
 }
 
+#start{
+    color: #FC4C02;
+}
+#end{
+    color: #FC4C02;
+}
+
 .brush .resize path {
   fill: #eee;
   stroke: #666;
@@ -96,9 +103,11 @@ article.flex-wrapper{
 #map { 
   position:absolute; 
   top:0; 
-  bottom:0; 
-  width:100%; 
+  bottom:0;
+  width: calc(100% - 350px);
 }
+
+/* COLUMNS */
 
 #left-column{
   width: 350px;
@@ -127,28 +136,64 @@ article.flex-wrapper{
     align-items: stretch;
 }
 
+/* LISTS */
 #ul-athletes{
     list-style-type: none;
     padding-left: 0;
+    margin-top: 0;
+}
+
+.table-head{
+    background-color: #ededed;
+    padding: 7px 45px 7px 25px;
+    font-size: 14px;
+    border-bottom: #b5b5b5 1px solid;
 }
 
 li.li-athlete {
-    padding: 10px 40px 10px 10px;
+    padding: 20px 45px 20px 25px;
+    font-size: 12px;
 }
 
-span.span_count {
+li.li-athlete:nth-child(even) {
+    background: #f5f5f5;
+}
+
+.span_count {
     float: right;
 }
 
-#right-column{
+.list-head {
+    border-bottom: #b5b5b5 1px solid;
+    border-top: #b5b5b5 1px solid;
+    margin: 0;
+    padding: 13px 25px;
+}
 
+.list-head h2{
+    font-size: 17px;
+    font-weight: normal;
+    display:inline;
 }
-#start{
-    color: #FC4C02;
+
+.chevron:hover{
+    cursor: pointer;
 }
-#end{
-    color: #FC4C02;
+
+.chevron.hidden{
+    display: none;
 }
+
+div.list-table {
+    max-height: 365px;
+    overflow: hidden;
+    transition: max-height 500ms ease-out;
+}
+
+div.list-table.collapse{
+    max-height: 0;
+}
+
 .mapboxgl-ctrl-group.mapboxgl-ctrl {
     margin-top: 100px;
 }

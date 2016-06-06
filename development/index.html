@@ -10,6 +10,7 @@
     <script src='node_modules/polyline/src/polyline.js' charset="utf-8"></script>
 
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 </head>
 
 <body>
@@ -38,16 +39,26 @@
  
 
         <div id='lists' class='flex-item'> 
-            <div id='list-athletes-activity'>
-                <h1>athletes</h1>
-                <ul id='ul-athletes'>
+            <div id='list-athletes-activity' class="list-section">
+                <div class="list-head">
+                    <h2>Most Active Organizers</h2>
+                    <i class="fa fa-chevron-right span_count chevron hidden" aria-hidden="true" id="list-activity-chevron-right"></i>
+                    <i class="fa fa-chevron-down span_count chevron" aria-hidden="true" id="list-activity-chevron-down"></i>
+                </div>
+                <div class="list-table" id="list-table-athlete">
+                    <div class="table-head">
+                        <span>Athlete</span>
+                        <span class="span_count">Activity Count</span>
+                    </div>
+                    <ul id='ul-athletes'>
+                    </ul>
+                </div>
 
-                </ul>
             </div>
 
 
             <div id='list-segment' class = 'table'> 
-                <h1>segments</h1>
+                <h2>segments</h2>
             </div>
         </div>
 
@@ -69,5 +80,6 @@
 <script src="js/histogram.js"></script>
 <script src="js/table.js"></script>
 <script src="js/map.js"></script>
+<script src="js/basic-interaction.js"></script>
 
 </html>

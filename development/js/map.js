@@ -106,14 +106,16 @@ map.on('load', function () {
         // GET COORDINATES DATA
         d3.json('data/small_club_api_segment_6_4.json', function(err, coordinates_data) {
 
-
             g_activity_data = activity_data;
 
             // Display the heat map
-            displayHeatMap(activity_data, athletes);
+            //displayHeatMap(activity_data, athletes);
             map_loaded = true;
 
             map.addSource('hexGrid', grid_source);
+
+            // Athletes object for keeping track of most active
+            createActivityCollection(activity_data, athletes);
 
             makeSeattleHexGrid();
 
@@ -230,7 +232,7 @@ function updateHeatMap(activity_data, athletes){
     if(map_loaded){
         activity_collection.features = [];
 
-        createCollection(activity_data, athletes);
+        createActivityCollection(activity_data, athletes);
 
         source.setData(activity_collection);
         updateSeattleHexGrid();
@@ -238,10 +240,10 @@ function updateHeatMap(activity_data, athletes){
 
 }
 
-function displayHeatMap(activity_data, athletes){
+function displaySegments(activity_data){
 
     // Athletes object for keeping track of most active
-    createCollection(activity_data, athletes);
+    createActivityCollection(activity_data, athletes);
 
     map.addSource("heat-map", source);
 
@@ -261,7 +263,30 @@ function displayHeatMap(activity_data, athletes){
 
 }
 
-function createCollection(activity_data, athletes){
+function displayHeatMap(activity_data, athletes){
+
+    // Athletes object for keeping track of most active
+    createActivityCollection(activity_data, athletes);
+
+    map.addSource("heat-map", source);
+
+    map.addLayer({
+        "id": "heat-map",
+        "type": "circle",
+        "source": "heat-map",
+        "layout": {
+            'visibility': 'visible'
+        },
+        "paint": {
+            "circle-color": "#000000",
+            "circle-radius": 1,
+            "circle-opacity": 1
+        }
+    });
+
+}
+
+function createActivityCollection(activity_data, athletes){
 
     // RESET athlete count
     for(var athlete in athletes){
@@ -330,12 +355,20 @@ function createCollection(activity_data, athletes){
     }); // END forEach
 }
 
-toggleLayer('Heat Map', 'heat-map');
+//toggleLayer('Heat Map', 'heat-map');
 //toggleLayer('Museums', 'museums');
 toggleHexLayer('Heat Map', 'hexGrid-');
 
 function toggleHexLayer(name, id){
-    var checkbox = document.getElementById('heat-map-id');
+    var label = document.createElement('label');
+    label.innerHTML = name;
+
+    var checkbox = document.createElement('input');
+    checkbox.setAttribute('type', 'checkbox');
+    checkbox.checked = true;
+    checkbox.id = 'heat-map-id';
+
+    label.appendChild(checkbox);
 
     checkbox.onclick = function (e) {
 
@@ -343,7 +376,7 @@ function toggleHexLayer(name, id){
             var layer_id = '' + id + (i -1);
             var visibility = map.getLayoutProperty(layer_id, 'visibility');
 
-            if (visibility === 'visible') {
+            if (visibility === 'visible' || visibility === undefined) {
                 checkbox.checked = false;
                 map.setLayoutProperty(layer_id, 'visibility', 'none');
             } else {
@@ -355,9 +388,11 @@ function toggleHexLayer(name, id){
 
     };
 
+    var layers = document.getElementById('checkboxes');
+    layers.appendChild(label);
+
+
 }
-
-
 
 function toggleLayer(name, id) {
     var label = document.createElement('label');
