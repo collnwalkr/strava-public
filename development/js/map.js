@@ -104,7 +104,7 @@ map.on('load', function () {
     // GET ACTIVITY DATA
     d3.json('data/small_club_activity_6_4.json', function(err, activity_data) {
         // GET COORDINATES DATA
-        d3.json('data/small_club_coordinates.json', function(err, coordinates_data) {
+        d3.json('data/small_club_api_segment_6_4.json', function(err, coordinates_data) {
 
 
             g_activity_data = activity_data;
@@ -185,8 +185,9 @@ function plotGrid(jenksbreaks){
                 "layout": {},
                 "paint": {
                     'fill-color': jenksbreaks[i][1],
-                    'fill-opacity': jenksbreaks[i][2]}
-            });
+                    'fill-opacity': jenksbreaks[i][2]
+                }
+            },'place-neighbourhood');
         }
     }
 
@@ -334,7 +335,6 @@ toggleLayer('Heat Map', 'heat-map');
 toggleHexLayer('Heat Map', 'hexGrid-');
 
 function toggleHexLayer(name, id){
-    console.log('toggling');
     var checkbox = document.getElementById('heat-map-id');
 
     checkbox.onclick = function (e) {
@@ -378,10 +378,8 @@ function toggleLayer(name, id) {
         if (visibility === 'visible') {
             checkbox.checked = false;
             map.setLayoutProperty(id, 'visibility', 'none');
-            this.className = '';
         } else {
             checkbox.checked = true;
-            this.className = 'active';
             map.setLayoutProperty(id, 'visibility', 'visible');
         }
     };
