@@ -105,6 +105,10 @@ map.on('load', function () {
             displayHeatMap(activity_data, athletes);
             map_loaded = true;
 
+            map.addSource('hexGrid', grid_source);
+
+            makeSeattleHexGrid();
+
             // SORT athletes by activity count
             var sorted_athletes = sort_athletes(athletes);
             sorted_athletes = sorted_athletes.slice(0,5);
@@ -117,56 +121,97 @@ map.on('load', function () {
     }); //END d3 coordinates
 });
 
-var bbox = [-96,31,-84,40];
-var cellWidth = 50;
-var units = 'miles';
+//var grid = turf.hex([-124.25, 45, -117, 49], .02);
+var grid = turf.hex([-122.5, 47.5, -122.1, 47.8], .01);
 
-//var grid = turf.hexGrid(bbox, cellWidth, units);
-//makeHexGrid();
+var grid_source = new mapboxgl.GeoJSONSource({
+    data: grid
+});
 
-function makeHexGrid(){
+var jenksbreaks = {};
 
-     var hexCount = turf.count(grid,activity_collection,'pt_count');
-     var numberBreaks = 6;
-     console.log(hexCount);
-     var jenksbreaks = turf.jenks(hexCount,'pt_count', numberBreaks);
-     var colors = ['#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026'];
-     var transparency = [.3,0.5,0.5,0.5,0.5,0.5];
-     jenksbreaks.forEach(function(element,i){
-         if (i > 0){
+function makeSeattleHexGrid(){
+
+
+    for(var i = 0; i < jenksbreaks.length; i++) {
+        if (i > 0) {
+            if (map.getLayer('hexGrid-' + (i - 1))) {
+                map.removeLayer('hexGrid-' + (i - 1));
+            }
+        }
+    }
+
+    var hexCount = turf.count(grid, activity_collection,'pt_count');
+
+    jenksbreaks = turf.jenks(hexCount,'pt_count', 6);
+
+    var colors = ['#f2f0f7','#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f'];
+    var transparency = [0,0.5,0.5,0.5,0.5,0.5];
+
+
+
+    jenksbreaks.forEach(function(element,i){
+        if (i > 0){
             jenksbreaks[i] = [element, colors[i-1],transparency[i-1]];
-         }
-         else{
-            jenksbreaks[i] = [element, null];
-         }
-     });
-
-     //console.log(grid);
-     console.log(hexCount);
-     //console.log(jenksbreaks);
-     //console.log(activity_collection);
-
-     map.addSource('hexGrid',{
-        "type": "geojson",
-        "data": grid
-     });
-
-     for(var i = 0; i < jenksbreaks.length; i++) {
-         if (i > 0) {
-             map.addLayer({
-                 "id": "hexGrid-" + (i - 1),
-                 "type": "fill",
-                 "source": "hexGrid",
-                 "layout": {},
-                 "paint": {
-                     'fill-color': jenksbreaks[i][1],
-                     'fill-opacity': jenksbreaks[i][2]
-                }
-             }, "airports");
-         }
-     }
+        }
+        else{jenksbreaks[i] = [element, null];
+        }
+    });
 
 
+
+    plotGrid(jenksbreaks);
+
+}
+
+function plotGrid(jenksbreaks){
+    console.log(jenksbreaks);
+
+    for(var i = 0; i < jenksbreaks.length; i++) {
+        if (i > 0) {
+            if(map.getLayer('hexGrid-' + (i-1)))
+            {
+                map.removeLayer('hexGrid-' + (i-1));
+            }
+
+            map.addLayer({
+                "id": "hexGrid-" + (i - 1),
+                "type": "fill",
+                "source": "hexGrid",
+                "layout": {},
+                "paint": {
+                    'fill-color': jenksbreaks[i][1],
+                    'fill-opacity': jenksbreaks[i][2]}
+            }, "heat-map");
+        }
+    }
+
+    jenksbreaks.forEach(function(jenksbreak, i) {
+        if (i > 0) {
+            var filters = ['all', ['<=', 'pt_count', jenksbreak[0]]];
+            if (i > 1) {
+                filters.push(['>', 'pt_count', jenksbreaks[i - 1][0]]);
+                map.setFilter('hexGrid-' + (i - 1), filters);
+            }
+        }
+    });
+}
+
+function updateSeattleHexGrid(){
+    for(var i = 0; i < jenksbreaks.length; i++) {
+        if (i > 0) {
+            if (map.getLayer('hexGrid-' + (i - 1))) {
+                map.removeLayer('hexGrid-' + (i - 1));
+            }
+        }
+    }
+
+    var hexCount = turf.count(grid, activity_collection,'pt_count');
+
+    grid_source.setData(grid);
+
+    console.log('updating');
+    plotGrid(jenksbreaks);
 }
 
 function updateAthletes(athletes){
@@ -184,6 +229,7 @@ function updateHeatMap(activity_data, athletes){
         createCollection(activity_data, athletes);
 
         source.setData(activity_collection);
+        updateSeattleHexGrid();
     }
 
 }
@@ -240,6 +286,8 @@ function createCollection(activity_data, athletes){
 
             if(current_activities.indexOf(activity_id) !== -1){
 
+                var coordinate_arr = flip_lat_long(lat_long);
+
                 // BEGIN athlete count
                 var athlete = activity.athlete;
                 if(!(athlete.id in athletes)){
@@ -252,25 +300,28 @@ function createCollection(activity_data, athletes){
                 }
                 // END athlete count
 
-                // BEGIN make feature
-                var activity_element = {
-                    'type': 'Feature',
-                    'properties': {
-                        'time': activity_time,
-                        'id': activity_id,
-                        'athlete': athlete
-                    },
-                    'geometry':{
-                        "type": "LineString",
-                        "coordinates": flip_lat_long(lat_long)
-                    }
+                for(var j=0; j< coordinate_arr.length; j++){
+                    // BEGIN make feature
+                    var activity_element = {
+                        'type': 'Feature',
+                        'properties': {
+                            'time': activity_time,
+                            'id': activity_id,
+                            'athlete': athlete
+                        },
+                        'geometry':{
+                            "type": "Point",
+                            "coordinates": coordinate_arr[j]
+                        }
 
-                };
-                // END make feature
+                    };
+                    // END make feature
 
 
-                // PUSH activity into collection
-                activity_collection.features.push(activity_element);
+                    // PUSH activity into collection
+                    activity_collection.features.push(activity_element);
+                }
+
 
             }
 
@@ -279,12 +330,10 @@ function createCollection(activity_data, athletes){
     }); // END forEach
 }
 
-console.log('hello');
 toggleLayer('Heat Map', 'heat-map');
 //toggleLayer('Museums', 'museums');
 
 function toggleLayer(name, id) {
-    console.log('here');
     var label = document.createElement('label');
     label.innerHTML = name;
 
