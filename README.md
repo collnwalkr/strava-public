@@ -3,10 +3,7 @@ Project Name
 
 ## Team Members
 
-1. Collin Walker (cwalker2)
-2. Yitao Wang (yitaow)
-3. Li Zeng (lizeng)
-4. Si Xie (rickixie) 
+Collin Walker (cwalker2), Yitao Wang (yitaow), Si Xie (rickixie), Li Zeng (lizeng)
 
 ## Breakdown
 
