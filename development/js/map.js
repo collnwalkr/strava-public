@@ -13,11 +13,19 @@ var source = new mapboxgl.GeoJSONSource({
     data: activity_collection
 });
 
+var bounds = [
+    [-121.17, 47.3], // Southwest coordinates
+    [-123, 48]  // Northeast coordinates
+];
+
 var map = new mapboxgl.Map({
     container: 'map', // container id
-    style: 'mapbox://styles/mapbox/outdoors-v9', //stylesheet location
+    style: 'mapbox://styles/mapbox/light-v9', //stylesheet location
+    //style: 'mapbox://styles/collnwalkr/95e48988', //stylesheet location
     center: [-122.17, 47.65], // starting position
-    zoom: 10 // starting zoom
+    zoom: 10,// starting zoom
+    minZoom: 9,
+    maxBounds: bounds // Sets bounds as max
 });
 
 // DISABLE rotation
@@ -121,8 +129,8 @@ map.on('load', function () {
     }); //END d3 coordinates
 });
 
-//var grid = turf.hex([-124.25, 45, -117, 49], .02);
-var grid = turf.hex([-122.5, 47.5, -122.1, 47.8], .01);
+var grid = turf.hexGrid([-122.5, 47.5, -122.1, 47.8], 1, 'miles');
+
 
 var grid_source = new mapboxgl.GeoJSONSource({
     data: grid
@@ -145,8 +153,8 @@ function makeSeattleHexGrid(){
 
     jenksbreaks = turf.jenks(hexCount,'pt_count', 6);
 
-    var colors = ['#f2f0f7','#f2f0f7','#cbc9e2','#9e9ac8','#756bb1','#54278f'];
-    var transparency = [0,0.5,0.5,0.5,0.5,0.5];
+    var colors = ['#000000','#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'];
+    var transparency = [0,0.6,0.6,0.6,0.6,0.6];
 
 
 
@@ -165,14 +173,9 @@ function makeSeattleHexGrid(){
 }
 
 function plotGrid(jenksbreaks){
-    console.log(jenksbreaks);
 
     for(var i = 0; i < jenksbreaks.length; i++) {
         if (i > 0) {
-            if(map.getLayer('hexGrid-' + (i-1)))
-            {
-                map.removeLayer('hexGrid-' + (i-1));
-            }
 
             map.addLayer({
                 "id": "hexGrid-" + (i - 1),
@@ -206,11 +209,10 @@ function updateSeattleHexGrid(){
         }
     }
 
-    var hexCount = turf.count(grid, activity_collection,'pt_count');
+    turf.count(grid, activity_collection,'pt_count');
 
     grid_source.setData(grid);
 
-    console.log('updating');
     plotGrid(jenksbreaks);
 }
 
@@ -300,7 +302,7 @@ function createCollection(activity_data, athletes){
                 }
                 // END athlete count
 
-                for(var j=0; j< coordinate_arr.length; j++){
+                for(var j=0; j< coordinate_arr.length - 20; j += 20){
                     // BEGIN make feature
                     var activity_element = {
                         'type': 'Feature',
