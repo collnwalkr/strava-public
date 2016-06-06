@@ -251,10 +251,9 @@ function displayHeatMap(activity_data, athletes){
             'visibility': 'visible'
         },
         "paint": {
-            "circle-color": "#ff1a1a",
-            "circle-radius": 25,
-            "circle-opacity": 0.5,
-            "circle-blur":10
+            "circle-color": "#000000",
+            "circle-radius": 1,
+            "circle-opacity": 1
         }
     });
 
