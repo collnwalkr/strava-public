@@ -10,25 +10,12 @@ var sorted_segment_info = function (segments){
                 segments[segment]["average_grade"], segments[segment]["elevation_low"], 
                 segments[segment]["elevation_high"], segments[segment]["elevation_diff"], 
                 segments[segment]["climb_category"], 
-                segments[segment]["athlete_showcase"]]);
+                segments[segment]["athlete_showcase"], segments[segment]["map"], 
+                segments[segment]["start_latlng"], segments[segment]["end_latlng"]]);
         }
 
         sorted_segments.sort(function(a, b) {return a[1] - b[1]});
         return sorted_segments.reverse();
-        /*
-         for (var segment in segments){
-            sorted_segments.push({"segment_name" : segments[segment]["segment_name"], "# of attempts": segments[segment]["# of attempts"], 
-                "# of athletes" : segments[segment]["# of athletes"],  "elevation_low" : segments[segment]["elevation_low"], 
-                "elevation_high" : segments[segment]["elevation_high"], "elevation_diff" : segments[segment]["elevation_diff"], 
-                "distance" : segments[segment]["distance"], "climb_category" : segments[segment]["climb_category"], 
-                "athlete_showcase" : segments[segment]["athlete_showcase"]});
-        }
-        console.log("From the function: ", sorted_segments);
-            
-
-        sorted_segments.sort(function(a, b) {return a["# of attempts"] - b["# of attempts"]});
-        return sorted_segments.reverse();
-        */
     }
 
 var display_top_segments = function(sorted_segments){
@@ -93,10 +80,6 @@ function render_segment_tb(segments_in_view){
     click_table_row();
 }
 
-
-
-//var segment = d3.json("data/processed_segment.json");
-//render_segment_tb(segments_in_view);
 
 function popUp(){
     var pop_up_panel = document.getElementById('pop-up-panel');
@@ -181,7 +164,7 @@ function popUp(){
     for (var showcase in showcases){
         var athlete_name = showcases[showcase][0];
         var athlete_time = showcases[showcase][1];
-        var athlete_speed = showcases[showcase][1];
+        var athlete_speed = showcases[showcase][2];
 
         var li_showcase = document.createElement('li');
         li_showcase.className += 'li-segment-showcase';
@@ -200,6 +183,11 @@ function popUp(){
     }
 }
 
+var event = document.createEvent('Event');
+function hightLightEvent(){    
+    event.initEvent('highlight', true, true);
+}
+
 function click_table_row(){
     var segment_entires = document.getElementsByClassName('li-segment-s');
     for (var i = 0; i < segment_entires.length; i++) {
@@ -209,6 +197,7 @@ function click_table_row(){
             
             current_segment_detail = sorted_current_segment[clicked_row_index];
             popUp();
+            hightLightEvent();
             /*
             var clicked_segment_id = sorted_current_segment[clicked_row_index][2];
             console.log(clicked_segment_id);
@@ -223,7 +212,7 @@ function click_table_row(){
     }
 }
 
-d3.json("data/processed_segment.json", function(error, data){
+d3.json("data/processed_segment_complete.json", function(error, data){
     var current_segment_info = [];
     cached_segment = data;
     data.forEach(function(d) {
