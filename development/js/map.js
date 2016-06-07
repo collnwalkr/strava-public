@@ -286,6 +286,7 @@ function updateSeattleHexGrid(){
     turf.count(grid, activity_collection,'pt_count');
 
     grid_source.setData(grid);
+    console.log(grid);
 
     plotGrid(jenksbreaks);
 }
@@ -452,9 +453,12 @@ function createSegmentCollection(segment_data) {
 
 
 function listenForSegmentClick(){
+
     document.addEventListener("highlight", function(){
         var end_pt_1 = current_segment_detail[11];
         var end_pt_2 = current_segment_detail[12];
+
+        highlightSegment(current_segment_detail[10]);
 
         zoomToSegment(end_pt_1, end_pt_2);
     }, false);
@@ -470,6 +474,72 @@ function zoomToSegment(end_pt_1, end_pt_2){
     bound_box[1][1] = Math.max(end_pt_1[0], end_pt_2[0]);
 
     map.fitBounds(bound_box);
+
+}
+
+var added_segment_source = false;
+
+
+var segment_highlight = {
+    'type': 'geojson',
+    "data": {
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [-122.48369693756104, 37.83381888486939],
+                [-122.48348236083984, 37.83317489144141],
+                [-122.48339653015138, 37.83270036637107],
+                [-122.48356819152832, 37.832056363179625]
+            ]
+        }
+    }
+};
+
+function highlightSegment(segment){
+
+    var lat_long = polyline.decode(segment.polyline);
+    lat_long = flip_lat_long(lat_long);
+
+    if(!added_segment_source){
+
+
+        console.log('adding source');
+        added_segment_source = true;
+
+        map.addSource("segment-highlight", segment_highlight);
+    }
+
+    map.removeSource("segment-highlight");
+
+    segment_highlight = {
+        'type': 'geojson',
+        "data": {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": lat_long
+            }
+        }
+    };
+
+    map.addSource("segment-highlight", segment_highlight);
+
+    map.addLayer({
+        "id": "segment-highlight",
+        "type": "line",
+        "source": "segment-highlight",
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "#FF4B00",
+            "line-width": 5
+        }
+    });
 
 }
 
