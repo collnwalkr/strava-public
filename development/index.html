@@ -11,19 +11,23 @@
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <script src="https://use.typekit.net/jyj3omh.js"></script>
+<script>try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 
 <body>
 
 <header>
     <h1>STRAVA</h1>
-    <h4>CSE 512 final project</h4>
+    <h4>Club Heatmap and Segment Explorer</h4>
 </header>
 
 <article class='flex-wrapper'>
     <!-- LEFT COLUMN -->
     <div id='left-column' class='flex-wrapper'>
-        
+        <h1>Club Overview</h1>
+
+        <h2>Map Views</h2>
         <div id='controls' class='flex-item'> 
             <div id='control-checkbox'> 
                 <nav id="checkboxes"></nav>
@@ -31,9 +35,9 @@
 
 
             <div id='control-timeline' class='chart'> 
-                <div class="title" id = "date-display">
-                    Date: <span id = "start">-</span> - <span id = "end">-</span>
-                </div>
+                <h2><div class="title" id = "date-display">
+                   Date: <span id = "start">-</span> - <span id = "end">-</span>
+                </div></h2>
             </div>
         </div>
  

@@ -1,7 +1,8 @@
 body { 
   margin:0; 
   padding:0; 
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size:14px;
 }
 
 header{
@@ -15,14 +16,30 @@ header{
 }
 
 header h1{
+  font-family: "proxima-nova",sans-serif;
+  font-size: 32px;
+  font-weight: 800;
 	color: #FC4C02;
 	display: inline-block;
 	margin-right: 20px;
-    margin-left: 40px;
+  margin-left: 25px;
 }
 
 header h4{
   display: inline;
+  font-size: 21px;
+  font-weight: 200;
+}
+
+h1 { 
+  font-size: 24px;
+  font-weight: 200;
+  margin-left: 20px;
+}
+h2{
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 20px;
 }
 
 .flex-wrapper{
@@ -58,12 +75,13 @@ article.flex-wrapper{
     margin-top: 50px;
 }
 .title{
-  margin-left: 20px;
+  /*margin-left: 20px;*/
 }
 .reset {
   padding-left: 1em;
   font-size: smaller;
   color: #ccc;
+  font-weight: 400;
 }
 
 .background.bar {
@@ -91,9 +109,11 @@ article.flex-wrapper{
 
 #start{
     color: #FC4C02;
+    font-weight: 400;
 }
 #end{
     color: #FC4C02;
+    font-weight: 400;
 }
 
 .brush .resize path {
@@ -112,7 +132,7 @@ article.flex-wrapper{
 
 #left-column{
   width: 350px;
-  padding-top: 80px;
+  padding-top: 15px;
   background-color: white;
 }
 
@@ -152,13 +172,14 @@ article.flex-wrapper{
 .table-head{
     background-color: #ededed;
     padding: 7px 45px 7px 25px;
-    font-size: 14px;
+    font-size: 12px;
     border-bottom: #b5b5b5 1px solid;
+    font-weight: bold;
 }
 
 li.li-athlete {
     padding: 20px 45px 20px 25px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 li.li-athlete:nth-child(even) {
@@ -167,7 +188,7 @@ li.li-athlete:nth-child(even) {
 
 .li-segment {
     padding: 20px 45px 20px 25px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .li-segment:nth-child(even) {
@@ -181,7 +202,10 @@ li.li-athlete:nth-child(even) {
     border-bottom: #b5b5b5 1px solid;
     border-top: #b5b5b5 1px solid;
     margin: 0;
-    padding: 13px 25px;
+    /*padding: 13px 25px;*/
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-right: 25px;
 }
 
 .list-head h2{
@@ -223,8 +247,33 @@ input[type="checkbox"] {
 label{
     float:left;
 }
+div#control-checkbox{
+  margin-left: 25px;
+}
 
 /* TIME LINE */
 div#control-timeline {
     clear: both;
+}
+
+/* SEGMENT DETAIL */
+caption{
+  font-size: 14px;
+  color: #FF4B00;
+  font-weight: 200;
+}
+value{
+  font-size:26px;
+  color:#4A4A4A;
+  font-weight:200;
+}
+unit{
+  font-size:16px;
+  color:#4A4A4A;
+  font-weight:200;
+}
+unit-name{
+  font-size:10px;
+  color:#9B9B9B;
+  font-weight:200;
 }
