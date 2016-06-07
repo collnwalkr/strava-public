@@ -261,17 +261,17 @@ caption{
   color: #FF4B00;
   font-weight: 200;
 }
-value{
+.value{
   font-size:26px;
   color:#4A4A4A;
   font-weight:200;
 }
-unit{
+.unit{
   font-size:16px;
   color:#4A4A4A;
   font-weight:200;
 }
-unit-name{
+.unit-name{
   font-size:10px;
   color:#9B9B9B;
   font-weight:200;
