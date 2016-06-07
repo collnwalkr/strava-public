@@ -115,7 +115,7 @@ function popUp(){
 
     var span_ave_grade = document.createElement('span');
     span_ave_grade.className += "value"
-    span_ave_grade.appendChild(document.createTextNode(100*current_segment_detail[4].toFixed(2)));
+    span_ave_grade.appendChild(document.createTextNode(current_segment_detail[4].toFixed(1)));
 
     var span_ave_grade_unit = document.createElement('span');
     span_ave_grade_unit.className += "unit";
