@@ -19,7 +19,6 @@ d3.json("data/small_club_activity_6_4.json", function(data){
     //d.show_date = showFormat(d.start_date);
   });
 
-  console.log(data[0]);
 
   var activity = crossfilter(data),
       all = activity.groupAll(),
@@ -125,9 +124,6 @@ d3.json("data/small_club_activity_6_4.json", function(data){
     renderAll();
   };
 
-  console.log(data[0].start_date);
-  console.log(data[0].show_date);
-
   function barChart() {
     if (!barChart.id) barChart.id = 0;
 
@@ -170,7 +166,6 @@ d3.json("data/small_club_activity_6_4.json", function(data){
             .append("rect")
               .attr("width", width)
               .attr("height", height);
-          console.log(width,height);
           g.selectAll(".bar")
               .data(["background", "foreground"])
             .enter().append("path")
