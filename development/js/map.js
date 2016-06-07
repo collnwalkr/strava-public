@@ -2,6 +2,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiY29sbG53YWxrciIsImEiOiJjaW95d2FmOTcwMGNmejBtNWw3ZHRuanQzIn0.0ykYaYqPm-P6WgXabZEN_g';
 
 var athletes = {};
+var used_segments= {};
 var g_activity_data = {};
 var activity_collection = {
     'type': 'FeatureCollection',
@@ -12,6 +13,12 @@ var segment_collection = {
     'type': 'FeatureCollection',
     'features':[]
 };
+
+var segment_start_collection = {
+    'type': 'FeatureCollection',
+    'features':[]
+};
+
 var map_loaded = false;
 
 var activity_source = new mapboxgl.GeoJSONSource({
@@ -20,6 +27,10 @@ var activity_source = new mapboxgl.GeoJSONSource({
 
 var seg_source = new mapboxgl.GeoJSONSource({
     data: segment_collection
+});
+
+var seg_start_source = new mapboxgl.GeoJSONSource({
+    data: segment_start_collection
 });
 
 var bounds = [
@@ -269,10 +280,27 @@ function displaySegments(){
             "visibility": 'visible'
         },
         "paint": {
-            "line-color": "#000",
-            "line-width": 1
+            "line-color": "#00162b",
+            "line-width": 1,
+            "line-opacity": 0.6
         }
-    });
+    }, 'place-islets-archipelago-aboriginal');
+
+    map.addSource("segment-start-map", seg_start_source);
+
+    map.addLayer({
+        "id": "segment-start-map",
+        "type": "circle",
+        "source": "segment-start-map",
+        "layout": {
+            'visibility': 'visible'
+        },
+        "paint": {
+            "circle-color": "#00162b",
+            "circle-radius": 3,
+            "circle-opacity": 0.6
+        }
+    },'place-islets-archipelago-aboriginal');
 
 }
 
@@ -306,48 +334,73 @@ function createSegmentCollection(segment_data) {
         for (var j = 0; j < seg_activity.segments.length; j++) {
 
             var segment = seg_activity.segments[j];
+            var segment_id = segment.segment_id;
+
+            used_segments.segment_id = segment_id;
+
+            if(!(used_segments.segment_id in used_segments)){
+
+                used_segments[segment_id] = {
+                    'segment': segment_id
+                };
+
+                // Retrive polyline property
+                var poly = segment.map.polyline;
 
 
-            // Retrive polyline property
-            var poly = segment.map.polyline;
+                // IF activity is a ride
+                if (poly) {
+
+                    // convert polyline to lat_long
+                    var lat_long = polyline.decode(poly);
+                    // change date to time stamp in seconds
+
+                    //if (current_activities.indexOf(segment_id) !== -1) {
+                    var coordinate_arr = flip_lat_long(lat_long);
+                    var start_coordinates = [];
+                    start_coordinates[0] = segment.start_latlng[1];
+                    start_coordinates[1] = segment.start_latlng[0];
+
+                    // BEGIN make feature
+                    var segment_element = {
+                        'type': 'Feature',
+                        'properties': {
+                            'id': segment_id
+                        },
+                        'geometry': {
+                            "type": "LineString",
+                            "coordinates": coordinate_arr
+                        }
+                    };
+                    // END make feature
+
+                    // BEGIN make feature
+                    var segment_start_element = {
+                        'type': 'Feature',
+                        'properties': {
+                            'id': segment_id
+                        },
+                        'geometry': {
+                            "type": "Point",
+                            "coordinates": start_coordinates
+                        }
+                    };
+                    // END make feature
 
 
-            // IF activity is a ride
-            if (poly) {
+                    // PUSH activity into collection
+                    segment_collection.features.push(segment_element);
+                    segment_start_collection.features.push(segment_start_element);
+                    //}
 
-
-                // convert polyline to lat_long
-                var lat_long = polyline.decode(poly);
-                // change date to time stamp in seconds
-                var segment_id = segment.segment_id;
-
-                 //if (current_activities.indexOf(segment_id) !== -1) {
-                     var coordinate_arr = flip_lat_long(lat_long);
-
-                     // BEGIN make feature
-                     var segment_element = {
-                     'type': 'Feature',
-                     'properties': {
-                        'id': segment_id
-                     },
-                         'geometry': {
-                         "type": "LineString",
-                         "coordinates": coordinate_arr
-                     }
-
-                     };
-                     // END make feature
-
-
-                     // PUSH activity into collection
-                     segment_collection.features.push(segment_element);
-                 //}
+                }
 
             }
+
         }
     });
-
     console.log(segment_collection);
+
 }
 
 function createActivityCollection(activity_data, athletes){
