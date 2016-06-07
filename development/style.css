@@ -1,7 +1,7 @@
 body { 
   margin:0; 
   padding:0; 
-  font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+  font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 header{
@@ -25,6 +25,12 @@ header h4{
   display: inline;
 }
 
+h1 {
+  /* Club Overview: */
+  font-size: 24px;
+  font-weight: normal;
+  /*color: #4A4A4A;*/
+}
 .flex-wrapper{
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -151,13 +157,14 @@ article.flex-wrapper{
 .table-head{
     background-color: #ededed;
     padding: 7px 45px 7px 25px;
-    font-size: 14px;
+    font-size: 12px;
     border-bottom: #b5b5b5 1px solid;
+    font-weight: bold;
 }
 
 li.li-athlete {
     padding: 20px 45px 20px 25px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 li.li-athlete:nth-child(even) {
@@ -166,7 +173,7 @@ li.li-athlete:nth-child(even) {
 
 .li-segment {
     padding: 20px 45px 20px 25px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .li-segment:nth-child(even) {
