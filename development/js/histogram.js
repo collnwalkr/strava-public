@@ -129,7 +129,7 @@ d3.json("data/small_club_activity_6_4.json", function(data){
 
     var margin = {top: 10, right: 20, bottom: 20, left: 20},
         x,
-        y = d3.scale.linear().range([50, 0]),
+        y = d3.scale.linear().range([30, 0]),
         id = barChart.id++,
         axis = d3.svg.axis().orient("bottom"),
         brush = d3.svg.brush(),

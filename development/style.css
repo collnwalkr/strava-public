@@ -10,36 +10,39 @@ header{
   width: 100%;
     position: relative;
     z-index: 500;
-    height: 80px;
+    height: 60px;
     background-color: white;
     box-shadow: 0 0 5px #888888;
 }
 
 header h1{
-  font-family: "proxima-nova",sans-serif;
-  font-size: 32px;
-  font-weight: 800;
-	color: #FC4C02;
-	display: inline-block;
-	margin-right: 20px;
-  margin-left: 25px;
+    font-family: "proxima-nova",sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    color: #FC4C02;
+    display: inline-block;
+    margin-right: 1px;
+    margin-left: 25px;
+    margin-top: 16px;
 }
 
 header h4{
   display: inline;
-  font-size: 21px;
+    font-size: 18px;
   font-weight: 200;
 }
 
 h1 { 
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 200;
   margin-left: 20px;
+    margin-bottom: 10px;
 }
 h2{
-  font-size: 16px;
-  font-weight: 600;
-  margin-left: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 20px;
+    margin-bottom: 10px;
 }
 
 .flex-wrapper{
@@ -55,10 +58,13 @@ article.flex-wrapper{
   position: absolute;
     width: 100%;
     height: 100%;
-    top: 80px;
+    top: 60px;
 }
 
 
+#controls.flex-item{
+    max-height: 135px;
+}
 .flex-item {
     -webkit-flex: 1 1 auto;
     -ms-flex: 1 1 auto;
@@ -125,15 +131,14 @@ article.flex-wrapper{
   position:absolute; 
   top:0; 
   bottom:0;
-  width: calc(100% - 350px);
+  width: calc(100% - 300px);
 }
 
 /* COLUMNS */
 
 #left-column{
-  width: 350px;
-  padding-top: 15px;
-  background-color: white;
+    width: 300px;
+    background-color: white;
 }
 
 #left-column.flex-wrapper{
@@ -243,12 +248,29 @@ button.mapboxgl-ctrl-icon.mapboxgl-ctrl-compass{
 /* CHECKBOXES */
 input[type="checkbox"] {
     float: left;
+    margin-right: 6px;
 }
 label{
     float:left;
 }
+label:last-child{
+    float:right;
+    padding-right: 6px;
+}
 div#control-checkbox{
-  margin-left: 25px;
+  margin-left: 20px;
+}
+nav#checkboxes{
+    border: 1px #9B9B9B solid;
+    border-radius: 4px;
+    float: left;
+    width: 80%;
+    padding: 7px 11px;
+}
+
+svg{
+    display:block;
+    margin:auto;
 }
 
 /* TIME LINE */

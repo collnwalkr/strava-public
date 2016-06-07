@@ -8,14 +8,12 @@
         var segment_list          = document.getElementById('list-table-segment');
 
         segment_list_chevron_down.onclick = function(e){
-            console.log('owww');
             segment_list_chevron_down.classList.add('hidden');
             segment_list_chevron_right.classList.remove('hidden');
             segment_list.style.maxHeight = 0;
         };
 
         segment_list_chevron_right.onclick = function(e){
-            console.log('hey');
             segment_list_chevron_down.classList.remove('hidden');
             segment_list_chevron_right.classList.add('hidden');
             segment_list.style.maxHeight = '365px';
