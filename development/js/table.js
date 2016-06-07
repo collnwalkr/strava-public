@@ -104,22 +104,38 @@ function popUp(){
     // Segment description
     segmentDescription1 = document.createElement('li');
     segmentDescription1.className += 'li-segment-description';
-    var span_distance = document.createElement('detail-span');
+    var span_distance = document.createElement('span');
     span_distance.className += "value"
     span_distance.appendChild(document.createTextNode(current_segment_detail[3].toFixed(1)));
 
-    var span_ave_grade = document.createElement('detail-span');
+    var span_distance_unit = document.createElement('span');
+    span_distance_unit.className += "unit";
+    span_distance_unit.appendChild(document.createTextNode("km"));
+
+
+    var span_ave_grade = document.createElement('span');
     span_ave_grade.className += "value"
     span_ave_grade.appendChild(document.createTextNode(100*current_segment_detail[4].toFixed(2)));
 
-    var span_ele_low = document.createElement('detail-span');
+    var span_ave_grade_unit = document.createElement('span');
+    span_ave_grade_unit.className += "unit";
+    span_ave_grade_unit.appendChild(document.createTextNode("%"));
+
+    var span_ele_low = document.createElement('span');
     span_ele_low.className += "value"
     if (current_segment_detail[5] != "null")
         span_ele_low.appendChild(document.createTextNode(current_segment_detail[5].toFixed(1)));
 
+    var span_ele_low_unit = document.createElement('span');
+    span_ele_low_unit.className += "unit";
+    span_ele_low_unit.appendChild(document.createTextNode("m"));
+
     segmentDescription1.appendChild(span_distance);
+    segmentDescription1.appendChild(span_distance_unit);
     segmentDescription1.appendChild(span_ave_grade);
-    segmentDescription1.appendChild(span_ele_low);
+    segmentDescription1.appendChild(span_ave_grade_unit);
+    segmentDescription1.appendChild(span_ele_low);    
+    segmentDescription1.appendChild(span_ele_low_unit);
     pop_up_panel.appendChild(segmentDescription1);
 
     segmentDescription1Tag = document.createElement('li');
@@ -144,15 +160,28 @@ function popUp(){
     if (current_segment_detail[6] != "null")
         span_ele_high.appendChild(document.createTextNode(current_segment_detail[6].toFixed(1)));
     span_ele_high.className += "value"
+
+    var span_ele_high_unit = document.createElement('span');
+    span_ele_high_unit.className += "unit";
+    span_ele_high_unit.appendChild(document.createTextNode("m"));
+
     var span_ele_diff = document.createElement('span');
     if (current_segment_detail[7] != "null")
         span_ele_diff.appendChild(document.createTextNode(current_segment_detail[7].toFixed(1)));
     span_ele_diff.className += "value"
+
+    var span_ele_diff_unit = document.createElement('span');
+    span_ele_diff_unit.className += "unit";
+    span_ele_diff_unit.appendChild(document.createTextNode("m"));
+
+
     var span_climb = document.createElement('span');
     span_climb.appendChild(document.createTextNode(current_segment_detail[8]));
     span_climb.className += "value"
     segmentDescription2.appendChild(span_ele_high);
+    segmentDescription2.appendChild(span_ele_high_unit);
     segmentDescription2.appendChild(span_ele_diff);
+    segmentDescription2.appendChild(span_ele_diff_unit);
     segmentDescription2.appendChild(span_climb);
     pop_up_panel.appendChild(segmentDescription2);
 

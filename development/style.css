@@ -316,18 +316,18 @@ caption{
   font-weight:200;
   margin-left: 10px;
   margin-right: 10px;
-  padding: 10px 25px 5px 25px;
+  padding: 10px 0px 5px 10px;
 }
 .unit{
   font-size:16px;
   color:#4A4A4A;
   font-weight:200;
+  padding: 10px 10px 5px 0px;
 
 }
 .unit-name{
   font-size:10px;
   color:#9B9B9B;
   font-weight:200;
-  padding: 5px 25px 10px 25px;
-  float:right;
+  padding: 5px 10px 10px 10px;
 }
