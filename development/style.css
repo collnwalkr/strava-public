@@ -182,6 +182,11 @@ div#list-athletes-activity {
     padding-left: 0;
     margin-top: 0;
 }
+
+#pop-up-panel{
+  list-style-type: none;
+
+}
 .table-head{
     background-color: #ededed;
     padding: 7px 45px 7px 25px;
@@ -309,14 +314,20 @@ caption{
   font-size:26px;
   color:#4A4A4A;
   font-weight:200;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px 25px 5px 25px;
 }
 .unit{
   font-size:16px;
   color:#4A4A4A;
   font-weight:200;
+
 }
 .unit-name{
   font-size:10px;
   color:#9B9B9B;
   font-weight:200;
+  padding: 5px 25px 10px 25px;
+  float:right;
 }

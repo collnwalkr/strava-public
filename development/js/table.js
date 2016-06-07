@@ -104,17 +104,18 @@ function popUp(){
     // Segment description
     segmentDescription1 = document.createElement('li');
     segmentDescription1.className += 'li-segment-description';
-    var span_distance = document.createElement('span');
+    var span_distance = document.createElement('detail-span');
     span_distance.className += "value"
     span_distance.appendChild(document.createTextNode(current_segment_detail[3].toFixed(1)));
 
-    var span_ave_grade = document.createElement('span');
+    var span_ave_grade = document.createElement('detail-span');
     span_ave_grade.className += "value"
-    span_ave_grade.appendChild(document.createTextNode(current_segment_detail[4]));
+    span_ave_grade.appendChild(document.createTextNode(100*current_segment_detail[4].toFixed(2)));
 
-    var span_ele_low = document.createElement('span');
+    var span_ele_low = document.createElement('detail-span');
     span_ele_low.className += "value"
-    span_ele_low.appendChild(document.createTextNode(current_segment_detail[5]));
+    if (current_segment_detail[5] != "null")
+        span_ele_low.appendChild(document.createTextNode(current_segment_detail[5].toFixed(1)));
 
     segmentDescription1.appendChild(span_distance);
     segmentDescription1.appendChild(span_ave_grade);
@@ -125,10 +126,13 @@ function popUp(){
     segmentDescription1Tag.className += 'li-segment-description-tag';
     var span_distance_tag = document.createElement('span');
     span_distance_tag.appendChild(document.createTextNode("Distance"));
+    span_distance_tag.className += "unit-name"
     var span_ave_grade_tag = document.createElement('span');
     span_ave_grade_tag.appendChild(document.createTextNode("Ave Grade"));
+    span_ave_grade_tag.className += "unit-name"
     var span_ele_low_tag = document.createElement('span');
     span_ele_low_tag.appendChild(document.createTextNode("Lowest Elev"));
+    span_ele_low_tag.className += "unit-name"
     segmentDescription1Tag.appendChild(span_distance_tag);
     segmentDescription1Tag.appendChild(span_ave_grade_tag);
     segmentDescription1Tag.appendChild(span_ele_low_tag);
@@ -137,11 +141,16 @@ function popUp(){
     segmentDescription2 = document.createElement('li');
     segmentDescription2.className += 'li-segment-description';
     var span_ele_high = document.createElement('span');
-    span_ele_high.appendChild(document.createTextNode(current_segment_detail[6]));
+    if (current_segment_detail[6] != "null")
+        span_ele_high.appendChild(document.createTextNode(current_segment_detail[6].toFixed(1)));
+    span_ele_high.className += "value"
     var span_ele_diff = document.createElement('span');
-    span_ele_diff.appendChild(document.createTextNode(current_segment_detail[7]));
+    if (current_segment_detail[7] != "null")
+        span_ele_diff.appendChild(document.createTextNode(current_segment_detail[7].toFixed(1)));
+    span_ele_diff.className += "value"
     var span_climb = document.createElement('span');
     span_climb.appendChild(document.createTextNode(current_segment_detail[8]));
+    span_climb.className += "value"
     segmentDescription2.appendChild(span_ele_high);
     segmentDescription2.appendChild(span_ele_diff);
     segmentDescription2.appendChild(span_climb);
@@ -151,10 +160,13 @@ function popUp(){
     segmentDescription2Tag.className += 'li-segment-description-tag';
     var span_ele_high_tag = document.createElement('span');
     span_ele_high_tag.appendChild(document.createTextNode("Highest Elev"));
+    span_ele_high_tag.className += "unit-name"
     var span_ele_diff_tag = document.createElement('span');
     span_ele_diff_tag.appendChild(document.createTextNode("Elev Difference"));
+    span_ele_diff_tag.className += "unit-name"
     var span_climb_tag = document.createElement('span');
     span_climb_tag.appendChild(document.createTextNode("Climb Category"));
+    span_climb_tag.className += "unit-name"
     segmentDescription2Tag.appendChild(span_ele_high_tag);
     segmentDescription2Tag.appendChild(span_ele_diff_tag);
     segmentDescription2Tag.appendChild(span_climb_tag);
