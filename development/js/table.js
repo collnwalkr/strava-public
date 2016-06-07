@@ -23,10 +23,8 @@ var display_top_segments = function(sorted_segments){
 
         // first and last name
         var name = sorted_segments[i][0];
-        console.log(name);
         // number of activities
         var attempt_count = sorted_segments[i][1];
-        console.log(attempt_count);
 
         var span_name = document.createElement('span');
         span_name.className += 'span-name';
@@ -36,7 +34,6 @@ var display_top_segments = function(sorted_segments){
 
         var li_segment = document.createElement('li');
         li_segment.className += 'li-segment';
-        console.log(li_segment);
         var t_name = document.createTextNode(name);
         var t_count = document.createTextNode(attempt_count);
 
@@ -70,7 +67,7 @@ function render_segment_tb(segments_in_view){
     //console.log(segment)
   
     var sorted_current_segment_info = sorted_segment_info(current_segment_info);
-    sorted_current_segment_info = sorted_current_segment_info.slice(0,5);
+    sorted_current_segment_info = sorted_current_segment_info.slice(0,30);
     display_top_segments(sorted_current_segment_info);
 }
 
@@ -80,7 +77,6 @@ function render_segment_tb(segments_in_view){
 
 d3.json("data/processed_segment.json", function(error, data){
     var current_segment_info = [];
-    console.log(segments_in_view);
     cached_segment = data;
     data.forEach(function(d) {
 
@@ -95,8 +91,7 @@ d3.json("data/processed_segment.json", function(error, data){
 
     var sorted_current_segment_info = sorted_segment_info(current_segment_info);
 
-    console.log(current_segment_info);
-    //sorted_current_segment_info = sorted_current_segment_info.slice(0,30);
+    sorted_current_segment_info = sorted_current_segment_info.slice(0,30);
     display_top_segments(sorted_current_segment_info);
 
 
