@@ -1,6 +1,7 @@
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiY29sbG53YWxrciIsImEiOiJjaW95d2FmOTcwMGNmejBtNWw3ZHRuanQzIn0.0ykYaYqPm-P6WgXabZEN_g';
 
+var hex_visibility = true;
 var athletes = {};
 var used_segments= {};
 var segments_in_view = [];
@@ -238,6 +239,8 @@ function makeSeattleHexGrid(){
 
 function plotGrid(jenksbreaks){
 
+    var visibility = hex_visibility ? 'visible' : 'none';
+    console.log(visibility);
 
     for(var i = 0; i < jenksbreaks.length; i++) {
         if (i > 0) {
@@ -246,7 +249,9 @@ function plotGrid(jenksbreaks){
                 "id": "hexGrid-" + (i - 1),
                 "type": "fill",
                 "source": "hexGrid",
-                "layout": {},
+                "layout": {
+                    'visibility': visibility
+                },
                 "paint": {
                     'fill-color': jenksbreaks[i][1],
                     'fill-opacity': jenksbreaks[i][2]
@@ -267,6 +272,7 @@ function plotGrid(jenksbreaks){
 }
 
 function updateSeattleHexGrid(){
+
     for(var i = 0; i < jenksbreaks.length; i++) {
         if (i > 0) {
             if (map.getLayer('hexGrid-' + (i - 1))) {
@@ -274,6 +280,7 @@ function updateSeattleHexGrid(){
             }
         }
     }
+
 
     turf.count(grid, activity_collection,'pt_count');
 
@@ -540,9 +547,11 @@ function toggleHexLayer(name, id){
             if (visibility === 'visible' || visibility === undefined) {
                 checkbox.checked = false;
                 map.setLayoutProperty(layer_id, 'visibility', 'none');
+                hex_visibility = false;
             } else {
                 checkbox.checked = true;
                 map.setLayoutProperty(layer_id, 'visibility', 'visible');
+                hex_visibility = true;
             }
         }
 
