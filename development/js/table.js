@@ -99,17 +99,105 @@ function render_segment_tb(segments_in_view){
 //render_segment_tb(segments_in_view);
 
 function popUp(){
-    var svgContainer = d3.select("#right-column")
-    .append("svg")
-    .attr("width", 200)
-    .attr("height", 200);
+    var pop_up_panel = document.getElementById('pop-up-panel');
 
-    var circle = svgContainer
-    .append("circle")
-    .color("black")
-    .attr("cx", 30)
-    .attr("cy", 30)
-    .attr("r", 20)
+    while (pop_up_panel.firstChild) {
+        pop_up_panel.removeChild(pop_up_panel.firstChild);
+    }
+    // Segment Name
+    segmentName = document.createElement('li');
+    segmentName.className += 'li-segment-name';
+    segmentName.appendChild(document.createTextNode(current_segment_detail[0]));
+    pop_up_panel.appendChild(segmentName);
+
+    // Segment attempts by athletes
+    segmentAttemptsByAthletes = document.createElement('li');
+    segmentAttemptsByAthletes.className += 'li-segment-attempts-by-athletes';
+    var text = current_segment_detail[1] + " attempts by " + current_segment_detail[2] + " people";
+    segmentAttemptsByAthletes.appendChild(document.createTextNode(text));
+    pop_up_panel.appendChild(segmentAttemptsByAthletes);
+
+
+    // Segment description
+    segmentDescription1 = document.createElement('li');
+    segmentDescription1.className += 'li-segment-description1';
+    var span_distance = document.createElement('span');
+    span_distance.appendChild(document.createTextNode(current_segment_detail[3]));
+    var span_ave_grade = document.createElement('span');
+    span_ave_grade.appendChild(document.createTextNode(current_segment_detail[4]));
+    var span_ele_low = document.createElement('span');
+    span_ele_low.appendChild(document.createTextNode(current_segment_detail[5]));
+    segmentDescription1.appendChild(span_distance);
+    segmentDescription1.appendChild(span_ave_grade);
+    segmentDescription1.appendChild(span_ele_low);
+    pop_up_panel.appendChild(segmentDescription1);
+
+    segmentDescription1Tag = document.createElement('li');
+    segmentDescription1Tag.className += 'li-segment-description1-tag';
+    var span_distance_tag = document.createElement('span');
+    span_distance_tag.appendChild(document.createTextNode("Distance"));
+    var span_ave_grade_tag = document.createElement('span');
+    span_ave_grade_tag.appendChild(document.createTextNode("Ave Grade"));
+    var span_ele_low_tag = document.createElement('span');
+    span_ele_low_tag.appendChild(document.createTextNode("Lowest Elev"));
+    segmentDescription1Tag.appendChild(span_distance_tag);
+    segmentDescription1Tag.appendChild(span_ave_grade_tag);
+    segmentDescription1Tag.appendChild(span_ele_low_tag);
+    pop_up_panel.appendChild(segmentDescription1Tag);
+
+    segmentDescription2 = document.createElement('li');
+    segmentDescription2.className += 'li-segment-description2';
+    var span_ele_high = document.createElement('span');
+    span_ele_high.appendChild(document.createTextNode(current_segment_detail[6]));
+    var span_ele_diff = document.createElement('span');
+    span_ele_diff.appendChild(document.createTextNode(current_segment_detail[7]));
+    var span_climb = document.createElement('span');
+    span_climb.appendChild(document.createTextNode(current_segment_detail[8]));
+    segmentDescription2.appendChild(span_ele_high);
+    segmentDescription2.appendChild(span_ele_diff);
+    segmentDescription2.appendChild(span_climb);
+    pop_up_panel.appendChild(segmentDescription2);
+
+    segmentDescription2Tag = document.createElement('li');
+    segmentDescription2Tag.className += 'li-segment-description2-tag';
+    var span_ele_high_tag = document.createElement('span');
+    span_ele_high_tag.appendChild(document.createTextNode("Highest Elev"));
+    var span_ele_diff_tag = document.createElement('span');
+    span_ele_diff_tag.appendChild(document.createTextNode("Elev Difference"));
+    var span_climb_tag = document.createElement('span');
+    span_climb_tag.appendChild(document.createTextNode("Climb Category"));
+    segmentDescription2Tag.appendChild(span_ele_high_tag);
+    segmentDescription2Tag.appendChild(span_ele_diff_tag);
+    segmentDescription2Tag.appendChild(span_climb_tag);
+    pop_up_panel.appendChild(segmentDescription2Tag);
+
+    segmentShowcaseTitle = document.createElement('li');
+    segmentShowcaseTitle.className += 'li-segment-showcase-title';
+    segmentShowcaseTitle.appendChild(document.createTextNode("Top 5 Club Segment Effort"));
+    pop_up_panel.appendChild(segmentShowcaseTitle);
+
+
+    var showcases = current_segment_detail[9];
+    for (var showcase in showcases){
+        var athlete_name = showcases[showcase][0];
+        var athlete_time = showcases[showcase][1];
+        var athlete_speed = showcases[showcase][1];
+
+        var li_showcase = document.createElement('li');
+        li_showcase.className += 'li-segment-showcase';
+
+        var span_athlete_name = document.createElement('span');
+        span_athlete_name.appendChild(document.createTextNode(athlete_name));
+        var span_athlete_time = document.createElement('span');
+        span_athlete_time.appendChild(document.createTextNode(athlete_time));
+        var span_athlete_speed = document.createElement('span');
+        span_athlete_speed.appendChild(document.createTextNode(athlete_speed));
+        li_showcase.appendChild(span_athlete_name);
+        li_showcase.appendChild(span_athlete_time);
+        li_showcase.appendChild(span_athlete_speed);
+        pop_up_panel.appendChild(li_showcase);
+
+    }
 }
 
 function click_table_row(){
