@@ -155,6 +155,8 @@ map.on('load', function () {
 
             segmentsInView();
 
+            listenForSegmentClick();
+
 
         }); //END d3 activity
 
@@ -219,7 +221,7 @@ function makeSeattleHexGrid(){
 
 
     var colors = ['#ffffcc','#ffeda0','#fed976','#feb24c','#fd8d3c','#fc4e2a','#e31a1c','#bd0026','#800026'];
-    var transparency = [0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4,0.4];
+    var transparency = [0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.45];
 
 
 
@@ -446,9 +448,31 @@ function createSegmentCollection(segment_data) {
 
         }
     });
-    console.log(segment_collection);
+}
+
+
+function listenForSegmentClick(){
+    document.addEventListener("highlight", function(){
+        var end_pt_1 = current_segment_detail[11];
+        var end_pt_2 = current_segment_detail[12];
+
+        zoomToSegment(end_pt_1, end_pt_2);
+    }, false);
+}
+
+function zoomToSegment(end_pt_1, end_pt_2){
+
+    var bound_box = [[],[]];
+    bound_box[0][0] = Math.min(end_pt_1[1], end_pt_2[1]);
+    bound_box[0][1] = Math.min(end_pt_1[0], end_pt_2[0]);
+
+    bound_box[1][0] = Math.max(end_pt_1[1], end_pt_2[1]);
+    bound_box[1][1] = Math.max(end_pt_1[0], end_pt_2[0]);
+
+    map.fitBounds(bound_box);
 
 }
+
 
 function createActivityCollection(activity_data, athletes){
 

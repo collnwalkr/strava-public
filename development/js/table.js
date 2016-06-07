@@ -183,9 +183,9 @@ function popUp(){
     }
 }
 
-var event = document.createEvent('Event');
-function hightLightEvent(){    
-    event.initEvent('highlight', true, true);
+function hightLightEvent(){
+    var event = new Event('highlight',{"bubbles":true, "cancelable":false});
+    document.dispatchEvent(event);
 }
 
 function click_table_row(){
