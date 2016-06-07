@@ -36,11 +36,12 @@ h1 {
   font-size: 20px;
   font-weight: 200;
   margin-left: 20px;
-    margin-bottom: 10px;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 h2{
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 400;
     margin-left: 20px;
     margin-bottom: 10px;
 }
@@ -61,7 +62,9 @@ article.flex-wrapper{
     top: 60px;
 }
 
-
+#controls{
+    margin-bottom: 30px;
+}
 #controls.flex-item{
     max-height: 135px;
 }
@@ -188,7 +191,7 @@ div#list-athletes-activity {
 }
 
 li.li-athlete {
-    padding: 20px 45px 20px 25px;
+    padding: 10px 45px 10px 25px;
     font-size: 14px;
 }
 
@@ -197,7 +200,7 @@ li.li-athlete:nth-child(even) {
 }
 
 .li-segment-s {
-    padding: 20px 45px 20px 25px;
+    padding: 10px 45px 10px 25px;
     font-size: 14px;
 }
 
@@ -271,6 +274,7 @@ nav#checkboxes{
     float: left;
     width: 80%;
     padding: 7px 11px;
+    margin-bottom: 20px;
 }
 
 svg{
@@ -281,6 +285,9 @@ svg{
 /* TIME LINE */
 div#control-timeline {
     clear: both;
+}
+.title#date-display{
+    margin-left: 20px;
 }
 
 /* TIME LINE */

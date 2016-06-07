@@ -35,9 +35,10 @@
 
 
             <div id='control-timeline' class='chart'> 
-                <h2><div class="title" id = "date-display">
-                   Date: <span id = "start">-</span> - <span id = "end">-</span>
-                </div></h2>
+            <h2>Activity Timeline</h2>
+                <div class="title" id = "date-display">
+                   <span id = "start">-</span> - <span id = "end">-</span>
+                </div>
             </div>
         </div>
  
@@ -54,8 +55,10 @@
                         <span>Athlete</span>
                         <span class="span_count">Activity Count</span>
                     </div>
-                    <ul id='ul-athletes'>
-                    </ul>
+                    <div style="overflow:auto; height:150px;">
+                        <ul id='ul-athletes'>
+                        </ul>
+                    </div>
                 </div>
 
             </div>
@@ -73,7 +76,7 @@
                         <span>Name</span>
                         <span class="span_count"># of Attempts</span>
                     </div>
-                    <div style="overflow:auto; height:250px;">
+                    <div style="overflow:auto; height:150px;">
                         <ul id='ul-segments'>                      
                      
                         </ul>
