@@ -88,6 +88,10 @@ function popUp(){
         pop_up_panel.removeChild(pop_up_panel.firstChild);
     }
     // Segment Name
+    x = document.createElement('span');
+    x.className += 'dismiss';
+    pop_up_panel.appendChild(x);
+
     segmentName = document.createElement('li');
     segmentName.className += 'li-segment-name';
     segmentName.appendChild(document.createTextNode(current_segment_detail[0]));
@@ -105,7 +109,7 @@ function popUp(){
     segmentDescription1 = document.createElement('li');
     segmentDescription1.className += 'li-segment-description';
     var span_distance = document.createElement('span');
-    span_distance.className += "value"
+    span_distance.className += "value 1";
     span_distance.appendChild(document.createTextNode(current_segment_detail[3].toFixed(1)));
 
     var span_distance_unit = document.createElement('span');
@@ -114,7 +118,7 @@ function popUp(){
 
 
     var span_ave_grade = document.createElement('span');
-    span_ave_grade.className += "value"
+    span_ave_grade.className += "value 2";
     span_ave_grade.appendChild(document.createTextNode(current_segment_detail[4].toFixed(1)));
 
     var span_ave_grade_unit = document.createElement('span');
@@ -122,7 +126,7 @@ function popUp(){
     span_ave_grade_unit.appendChild(document.createTextNode("%"));
 
     var span_ele_low = document.createElement('span');
-    span_ele_low.className += "value"
+    span_ele_low.className += "value 3"
     if (current_segment_detail[5] != "null")
         span_ele_low.appendChild(document.createTextNode(current_segment_detail[5].toFixed(1)));
 
@@ -142,13 +146,13 @@ function popUp(){
     segmentDescription1Tag.className += 'li-segment-description-tag';
     var span_distance_tag = document.createElement('span');
     span_distance_tag.appendChild(document.createTextNode("Distance"));
-    span_distance_tag.className += "unit-name"
+    span_distance_tag.className += "unit-name 1";
     var span_ave_grade_tag = document.createElement('span');
     span_ave_grade_tag.appendChild(document.createTextNode("Ave Grade"));
-    span_ave_grade_tag.className += "unit-name"
+    span_ave_grade_tag.className += "unit-name 2";
     var span_ele_low_tag = document.createElement('span');
     span_ele_low_tag.appendChild(document.createTextNode("Lowest Elev"));
-    span_ele_low_tag.className += "unit-name"
+    span_ele_low_tag.className += "unit-name 3";
     segmentDescription1Tag.appendChild(span_distance_tag);
     segmentDescription1Tag.appendChild(span_ave_grade_tag);
     segmentDescription1Tag.appendChild(span_ele_low_tag);
@@ -159,7 +163,7 @@ function popUp(){
     var span_ele_high = document.createElement('span');
     if (current_segment_detail[6] != "null")
         span_ele_high.appendChild(document.createTextNode(current_segment_detail[6].toFixed(1)));
-    span_ele_high.className += "value"
+    span_ele_high.className += "value 1";
 
     var span_ele_high_unit = document.createElement('span');
     span_ele_high_unit.className += "unit";
@@ -168,7 +172,7 @@ function popUp(){
     var span_ele_diff = document.createElement('span');
     if (current_segment_detail[7] != "null")
         span_ele_diff.appendChild(document.createTextNode(current_segment_detail[7].toFixed(1)));
-    span_ele_diff.className += "value"
+    span_ele_diff.className += "value 2";
 
     var span_ele_diff_unit = document.createElement('span');
     span_ele_diff_unit.className += "unit";
@@ -177,7 +181,7 @@ function popUp(){
 
     var span_climb = document.createElement('span');
     span_climb.appendChild(document.createTextNode(current_segment_detail[8]));
-    span_climb.className += "value"
+    span_climb.className += "value 3";
     segmentDescription2.appendChild(span_ele_high);
     segmentDescription2.appendChild(span_ele_high_unit);
     segmentDescription2.appendChild(span_ele_diff);
@@ -189,13 +193,13 @@ function popUp(){
     segmentDescription2Tag.className += 'li-segment-description-tag';
     var span_ele_high_tag = document.createElement('span');
     span_ele_high_tag.appendChild(document.createTextNode("Highest Elev"));
-    span_ele_high_tag.className += "unit-name"
+    span_ele_high_tag.className += "unit-name 1";
     var span_ele_diff_tag = document.createElement('span');
     span_ele_diff_tag.appendChild(document.createTextNode("Elev Difference"));
-    span_ele_diff_tag.className += "unit-name"
+    span_ele_diff_tag.className += "unit-name 2";
     var span_climb_tag = document.createElement('span');
     span_climb_tag.appendChild(document.createTextNode("Climb Category"));
-    span_climb_tag.className += "unit-name"
+    span_climb_tag.className += "unit-name 3";
     segmentDescription2Tag.appendChild(span_ele_high_tag);
     segmentDescription2Tag.appendChild(span_ele_diff_tag);
     segmentDescription2Tag.appendChild(span_climb_tag);
@@ -210,13 +214,13 @@ function popUp(){
     segmentHeader.className += 'li-segment-description-tag';
     var span_athlete = document.createElement('span');
     span_athlete.appendChild(document.createTextNode("Athlete"));
-    span_athlete.className += "unit-name"
+    span_athlete.className += "segment-header";
     var span_time = document.createElement('span');
     span_time.appendChild(document.createTextNode("Time"));
-    span_time.className += "unit-name"
+    span_time.className += "segment-header";
     var span_speed = document.createElement('span');
     span_speed.appendChild(document.createTextNode("Speed"));
-    span_speed.className += "unit-name"
+    span_speed.className += "segment-header";
     segmentHeader.appendChild(span_athlete);
     segmentHeader.appendChild(span_time);
     segmentHeader.appendChild(span_speed);
@@ -233,10 +237,14 @@ function popUp(){
 
         var span_athlete_name = document.createElement('span');
         span_athlete_name.appendChild(document.createTextNode(athlete_name));
+        span_athlete_name.className += "showcase 1";
         var span_athlete_time = document.createElement('span');
         span_athlete_time.appendChild(document.createTextNode(athlete_time));
+        span_athlete_time.className += "showcase 2";
         var span_athlete_speed = document.createElement('span');
-        span_athlete_speed.appendChild(document.createTextNode(athlete_speed));
+        span_athlete_speed.className += "showcase 3";
+        span_athlete_speed.appendChild(document.createTextNode(athlete_speed.toFixed(2)));
+
         li_showcase.appendChild(span_athlete_name);
         li_showcase.appendChild(span_athlete_time);
         li_showcase.appendChild(span_athlete_speed);
