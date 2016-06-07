@@ -481,7 +481,6 @@ function zoomToSegment(segment){
             bound_box[1][0] = current[0];
             bound_box[1][1] = current[1];
 
-            console.log(bound_box);
         }
         else{
             bound_box[0][0] = Math.min(bound_box[0][0], current[0]);
@@ -524,8 +523,6 @@ function highlightSegment(segment){
 
     if(!added_segment_source){
 
-
-        console.log('adding source');
         added_segment_source = true;
 
         map.addSource("segment-highlight", segment_highlight);
@@ -632,7 +629,7 @@ function createActivityCollection(activity_data, athletes){
 
 //toggleLayer('Heat Map', 'heat-map');
 toggleHexLayer('Heat Map', 'hexGrid-');
-toggleSegmentLayer('Segments', 'segment-map', 'segment-start-map');
+toggleSegmentLayer('Segments', 'segment-map', 'segment-start-map', 'segment-highlight');
 
 function toggleHexLayer(name, id){
     var label = document.createElement('label');
@@ -671,7 +668,7 @@ function toggleHexLayer(name, id){
 
 }
 
-function toggleSegmentLayer(name, id, id2) {
+function toggleSegmentLayer(name, id, id2, id3) {
     var label = document.createElement('label');
 
     label.innerHTML = name;
@@ -691,10 +688,12 @@ function toggleSegmentLayer(name, id, id2) {
             checkbox.checked = false;
             map.setLayoutProperty(id, 'visibility', 'none');
             map.setLayoutProperty(id2, 'visibility', 'none');
+            map.setLayoutProperty(id3, 'visibility', 'none');
         } else {
             checkbox.checked = true;
             map.setLayoutProperty(id, 'visibility', 'visible');
             map.setLayoutProperty(id2, 'visibility', 'visible');
+            map.setLayoutProperty(id3, 'visibility', 'visible');
         }
     };
 
