@@ -3,6 +3,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiY29sbG53YWxrciIsImEiOiJjaW95d2FmOTcwMGNmejBtN
 
 var athletes = {};
 var used_segments= {};
+var segments_in_view = [];
 var g_activity_data = {};
 var activity_collection = {
     'type': 'FeatureCollection',
@@ -156,6 +157,30 @@ map.on('load', function () {
     }); //END d3 coordinates
 });
 
+map.on('moveend', function() {
+
+    var features = map.querySourceFeatures('segment-start-map', {
+        sourceLayer: 'segment-start-map'
+    });
+
+    if (features) {
+        // Populate features for the listing overlay.
+        //renderListings(features);
+        //
+        //// Set the filter to populate features into the layer.
+        //map.setFilter('airport', ['in', 'abbrev'].concat(features.map(function(feature) {
+        //    return feature.properties.abbrev;
+        //})));
+
+        segments_in_view = [];
+        for(var feature in features){
+            segments_in_view.push(features[feature].properties.id);
+        }
+
+    }
+
+});
+
 var grid = turf.hexGrid([-122.45, 47.27, -121.8, 47.95], 1, 'miles');
 
 
@@ -299,7 +324,7 @@ function displaySegments(){
             "circle-color": "#00162b",
             "circle-radius": 3,
             "circle-opacity": 0.6
-        }
+        },
     },'place-islets-archipelago-aboriginal');
 
 }
@@ -339,10 +364,6 @@ function createSegmentCollection(segment_data) {
             used_segments.segment_id = segment_id;
 
             if(!(used_segments.segment_id in used_segments)){
-
-                used_segments[segment_id] = {
-                    'segment': segment_id
-                };
 
                 // Retrive polyline property
                 var poly = segment.map.polyline;
@@ -386,6 +407,13 @@ function createSegmentCollection(segment_data) {
                         }
                     };
                     // END make feature
+
+                    // UPDATE used segments
+                    used_segments[segment_id] = {
+                        'segment': segment_id,
+                        'coordinates': start_coordinates
+                    };
+
 
 
                     // PUSH activity into collection
