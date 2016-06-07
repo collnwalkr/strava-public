@@ -323,9 +323,10 @@ function displaySegments(){
             "visibility": 'visible'
         },
         "paint": {
-            "line-color": "#00162b",
-            "line-width": 1,
-            "line-opacity": 0.6
+            "line-color": "#B07303",
+            "line-width": 0.25,
+            'line-gap-width' : 0.5,
+            "line-opacity": 0.35
         }
     }, 'place-islets-archipelago-aboriginal');
 
@@ -339,9 +340,9 @@ function displaySegments(){
             'visibility': 'visible'
         },
         "paint": {
-            "circle-color": "#00162b",
-            "circle-radius": 3,
-            "circle-opacity": 0.6
+            "circle-color": "#B07303",
+            "circle-radius": 2,
+            "circle-opacity": 0.35
         }
     },'place-islets-archipelago-aboriginal');
 
