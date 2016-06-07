@@ -178,6 +178,7 @@ map.on('moveend', function() {
         }
 
     }
+    updateSegments(segments_in_view);
 
 });
 

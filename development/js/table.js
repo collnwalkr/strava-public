@@ -1,10 +1,11 @@
 var current_segment_ids = [1212,48, 23]; // a list of segment id, changing as the current window changes
-
+var cached_segment;
+// should change to segments_in_view
 var sorted_segment_info = function (segments){
         var sorted_segments = [];
         for (var segment in segments)
             //console.log("From the function: ", segment)
-            sorted_segments.push([segments[segment]["Name"], segments[segment]["# of Attempts"]]);
+            sorted_segments.push([segments[segment]["segment_name"], segments[segment]["# of attempts"]]);
 
         sorted_segments.sort(function(a, b) {return a[1] - b[1]});
         return sorted_segments.reverse();
@@ -50,22 +51,54 @@ var display_top_segments = function(sorted_segments){
 
 };
 
-d3.csv("data/segment_info.csv", function(error, data){
-    var current_segment_info = []
+function updateSegments(segments_in_view){
+    render_segment_tb(segments_in_view);
+}
 
-    data.forEach(function(d) {
+function render_segment_tb(segments_in_view){
+    var current_segment_info = [];
+    cached_segment.forEach(function(d) {
 
-        d['# of Attempts'] = +d['# of Attempts'];
+        d['# of attempts'] = +d['# of attempts'];
         d['segment_id'] = +d['segment_id'];
         var segment_id = d.segment_id;
-        if (current_segment_ids.indexOf(segment_id) !== -1){
+        if (segments_in_view.indexOf(segment_id) !== -1){
             current_segment_info.push(d);            
         }
     });
+
+    //console.log(segment)
   
     var sorted_current_segment_info = sorted_segment_info(current_segment_info);
+    sorted_current_segment_info = sorted_current_segment_info.slice(0,5);
+    display_top_segments(sorted_current_segment_info);
+}
+
+
+//var segment = d3.json("data/processed_segment.json");
+//render_segment_tb(segments_in_view);
+
+d3.json("data/processed_segment.json", function(error, data){
+    var current_segment_info = [];
+    console.log(segments_in_view);
+    cached_segment = data;
+    data.forEach(function(d) {
+
+        d['# of attempts'] = +d['# of attempts'];
+        d['segment_id'] = +d['segment_id'];
+        var segment_id = d.segment_id;
+        if (segments_in_view.indexOf(segment_id) !== -1){
+            current_segment_info.push(d);            
+        }
+    });
+
+
+    var sorted_current_segment_info = sorted_segment_info(current_segment_info);
+
+    console.log(current_segment_info);
     //sorted_current_segment_info = sorted_current_segment_info.slice(0,30);
     display_top_segments(sorted_current_segment_info);
 
 
 });
+
