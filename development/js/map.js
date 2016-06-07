@@ -7,10 +7,19 @@ var activity_collection = {
     'type': 'FeatureCollection',
     'features':[]
 };
+
+var segment_collection = {
+    'type': 'FeatureCollection',
+    'features':[]
+};
 var map_loaded = false;
 
-var source = new mapboxgl.GeoJSONSource({
+var activity_source = new mapboxgl.GeoJSONSource({
     data: activity_collection
+});
+
+var seg_source = new mapboxgl.GeoJSONSource({
+    data: segment_collection
 });
 
 var bounds = [
@@ -104,7 +113,7 @@ map.on('load', function () {
     // GET ACTIVITY DATA
     d3.json('data/small_club_activity_6_4.json', function(err, activity_data) {
         // GET COORDINATES DATA
-        d3.json('data/small_club_api_segment_6_4.json', function(err, coordinates_data) {
+        d3.json('data/slim_small_club_api_segment_6_4.json', function(err, segment_data) {
 
             g_activity_data = activity_data;
 
@@ -125,6 +134,11 @@ map.on('load', function () {
 
 
             display_top_athletes(sorted_athletes);
+
+            createSegmentCollection(segment_data);
+            displaySegments();
+
+
 
         }); //END d3 activity
 
@@ -234,30 +248,29 @@ function updateHeatMap(activity_data, athletes){
 
         createActivityCollection(activity_data, athletes);
 
-        source.setData(activity_collection);
+        activity_source.setData(activity_collection);
         updateSeattleHexGrid();
     }
 
 }
 
-function displaySegments(activity_data){
+function displaySegments(){
 
-    // Athletes object for keeping track of most active
-    createActivityCollection(activity_data, athletes);
 
-    map.addSource("heat-map", source);
+    map.addSource("segment-map", seg_source);
 
     map.addLayer({
-        "id": "heat-map",
-        "type": "circle",
-        "source": "heat-map",
+        "id": "segment-map",
+        "type": "line",
+        "source": "segment-map",
         "layout": {
-            'visibility': 'visible'
+            "line-join": "round",
+            "line-cap": "round",
+            "visibility": 'visible'
         },
         "paint": {
-            "circle-color": "#000000",
-            "circle-radius": 1,
-            "circle-opacity": 1
+            "line-color": "#000",
+            "line-width": 1
         }
     });
 
@@ -268,7 +281,7 @@ function displayHeatMap(activity_data, athletes){
     // Athletes object for keeping track of most active
     createActivityCollection(activity_data, athletes);
 
-    map.addSource("heat-map", source);
+    map.addSource("heat-map", activity_source);
 
     map.addLayer({
         "id": "heat-map",
@@ -284,6 +297,58 @@ function displayHeatMap(activity_data, athletes){
         }
     });
 
+}
+
+function createSegmentCollection(segment_data) {
+
+    segment_data.forEach(function (seg_activity) {
+
+        for (var j = 0; j < seg_activity.segments.length; j++) {
+
+            var segment = seg_activity.segments[j];
+
+
+            // Retrive polyline property
+            var poly = segment.map.polyline;
+
+
+            // IF activity is a ride
+            if (poly) {
+
+
+                // convert polyline to lat_long
+                var lat_long = polyline.decode(poly);
+                // change date to time stamp in seconds
+                var segment_id = segment.segment_id;
+
+                 //if (current_activities.indexOf(segment_id) !== -1) {
+                     var coordinate_arr = flip_lat_long(lat_long);
+                     //console.log(coordinate_arr);
+
+                     // BEGIN make feature
+                     var segment_element = {
+                     'type': 'Feature',
+                     'properties': {
+                        'id': segment_id
+                     },
+                         'geometry': {
+                         "type": "LineString",
+                         "coordinates": lat_long
+                     }
+
+                     };
+                     // END make feature
+
+
+                     // PUSH activity into collection
+                     segment_collection.features.push(segment_element);
+                 //}
+
+            }
+        }
+    });
+
+    console.log(segment_collection);
 }
 
 function createActivityCollection(activity_data, athletes){
@@ -307,12 +372,11 @@ function createActivityCollection(activity_data, athletes){
 
             // convert polyline to lat_long
             var lat_long = polyline.decode(poly);
-            // change date to time stamp in seconds
-            var activity_time = Math.round(new Date(activity.start_date_local).getTime()/1000);
             var activity_id = activity.id;
 
             if(current_activities.indexOf(activity_id) !== -1){
 
+                //var coordinate_arr = flip_lat_long(lat_long);
                 var coordinate_arr = flip_lat_long(lat_long);
 
                 // BEGIN athlete count
@@ -341,7 +405,6 @@ function createActivityCollection(activity_data, athletes){
 
                     };
                     // END make feature
-
 
                     // PUSH activity into collection
                     activity_collection.features.push(activity_element);
