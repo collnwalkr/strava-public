@@ -22,6 +22,8 @@ var segment_start_collection = {
 
 var map_loaded = false;
 
+var first_loading = true;
+
 var activity_source = new mapboxgl.GeoJSONSource({
     data: activity_collection
 });
@@ -150,6 +152,7 @@ map.on('load', function () {
             createSegmentCollection(segment_data);
             displaySegments();
 
+            segmentsInView();
 
 
         }); //END d3 activity
@@ -159,28 +162,35 @@ map.on('load', function () {
 
 map.on('moveend', function() {
 
+    segmentsInView();
+
+});
+
+function segmentsInView(){
+    console.log(segment_start_collection);
+
     var features = map.querySourceFeatures('segment-start-map', {
         sourceLayer: 'segment-start-map'
     });
+    console.log(features);
 
-    if (features) {
-        // Populate features for the listing overlay.
-        //renderListings(features);
-        //
-        //// Set the filter to populate features into the layer.
-        //map.setFilter('airport', ['in', 'abbrev'].concat(features.map(function(feature) {
-        //    return feature.properties.abbrev;
-        //})));
-
+    if (features && !first_loading) {
         segments_in_view = [];
         for(var feature in features){
             segments_in_view.push(features[feature].properties.id);
         }
 
+    } else if (first_loading){
+        first_loading = false;
+        segments_in_view = [];
+        for(var j = 0; j < segment_start_collection.features.length; j++){
+            segments_in_view.push(segment_start_collection.features[j].properties.id);
+        }
     }
-    updateSegments(segments_in_view);
 
-});
+
+    updateSegments(segments_in_view);
+}
 
 var grid = turf.hexGrid([-122.45, 47.27, -121.8, 47.95], 1, 'miles');
 
@@ -325,8 +335,15 @@ function displaySegments(){
             "circle-color": "#00162b",
             "circle-radius": 3,
             "circle-opacity": 0.6
-        },
+        }
     },'place-islets-archipelago-aboriginal');
+
+
+    //var temp = map.querySourceFeatures('segment-start-map', { sourceLayer: 'segment-start-map'});
+    //console.log( temp);
+    //console.log( temp.length == 0);
+    //console.log( temp.length === 0);
+
 
 }
 
