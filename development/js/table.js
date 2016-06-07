@@ -103,20 +103,26 @@ function popUp(){
 
     // Segment description
     segmentDescription1 = document.createElement('li');
-    segmentDescription1.className += 'li-segment-description1';
+    segmentDescription1.className += 'li-segment-description';
     var span_distance = document.createElement('span');
-    span_distance.appendChild(document.createTextNode(current_segment_detail[3]));
+    span_distance.className += "value"
+    span_distance.appendChild(document.createTextNode(current_segment_detail[3].toFixed(1)));
+
     var span_ave_grade = document.createElement('span');
+    span_ave_grade.className += "value"
     span_ave_grade.appendChild(document.createTextNode(current_segment_detail[4]));
+
     var span_ele_low = document.createElement('span');
+    span_ele_low.className += "value"
     span_ele_low.appendChild(document.createTextNode(current_segment_detail[5]));
+
     segmentDescription1.appendChild(span_distance);
     segmentDescription1.appendChild(span_ave_grade);
     segmentDescription1.appendChild(span_ele_low);
     pop_up_panel.appendChild(segmentDescription1);
 
     segmentDescription1Tag = document.createElement('li');
-    segmentDescription1Tag.className += 'li-segment-description1-tag';
+    segmentDescription1Tag.className += 'li-segment-description-tag';
     var span_distance_tag = document.createElement('span');
     span_distance_tag.appendChild(document.createTextNode("Distance"));
     var span_ave_grade_tag = document.createElement('span');
@@ -129,7 +135,7 @@ function popUp(){
     pop_up_panel.appendChild(segmentDescription1Tag);
 
     segmentDescription2 = document.createElement('li');
-    segmentDescription2.className += 'li-segment-description2';
+    segmentDescription2.className += 'li-segment-description';
     var span_ele_high = document.createElement('span');
     span_ele_high.appendChild(document.createTextNode(current_segment_detail[6]));
     var span_ele_diff = document.createElement('span');
@@ -142,7 +148,7 @@ function popUp(){
     pop_up_panel.appendChild(segmentDescription2);
 
     segmentDescription2Tag = document.createElement('li');
-    segmentDescription2Tag.className += 'li-segment-description2-tag';
+    segmentDescription2Tag.className += 'li-segment-description-tag';
     var span_ele_high_tag = document.createElement('span');
     span_ele_high_tag.appendChild(document.createTextNode("Highest Elev"));
     var span_ele_diff_tag = document.createElement('span');
@@ -233,4 +239,3 @@ d3.json("data/processed_segment_complete.json", function(error, data){
     click_table_row();
 
 });
-
