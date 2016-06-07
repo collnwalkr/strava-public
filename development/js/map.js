@@ -113,7 +113,7 @@ map.on('load', function () {
     // GET ACTIVITY DATA
     d3.json('data/small_club_activity_6_4.json', function(err, activity_data) {
         // GET COORDINATES DATA
-        d3.json('data/slim_small_club_api_segment_6_4.json', function(err, segment_data) {
+        d3.json('data/slim_api_segment_6_4.json', function(err, segment_data) {
 
             g_activity_data = activity_data;
 
@@ -145,7 +145,7 @@ map.on('load', function () {
     }); //END d3 coordinates
 });
 
-var grid = turf.hexGrid([-122.45, 47.37, -121.8, 47.9], 1, 'miles');
+var grid = turf.hexGrid([-122.45, 47.27, -121.8, 47.95], 1, 'miles');
 
 
 var grid_source = new mapboxgl.GeoJSONSource({
@@ -323,7 +323,6 @@ function createSegmentCollection(segment_data) {
 
                  //if (current_activities.indexOf(segment_id) !== -1) {
                      var coordinate_arr = flip_lat_long(lat_long);
-                     //console.log(coordinate_arr);
 
                      // BEGIN make feature
                      var segment_element = {
@@ -333,7 +332,7 @@ function createSegmentCollection(segment_data) {
                      },
                          'geometry': {
                          "type": "LineString",
-                         "coordinates": lat_long
+                         "coordinates": coordinate_arr
                      }
 
                      };
@@ -376,7 +375,6 @@ function createActivityCollection(activity_data, athletes){
 
             if(current_activities.indexOf(activity_id) !== -1){
 
-                //var coordinate_arr = flip_lat_long(lat_long);
                 var coordinate_arr = flip_lat_long(lat_long);
 
                 // BEGIN athlete count
@@ -391,7 +389,7 @@ function createActivityCollection(activity_data, athletes){
                 }
                 // END athlete count
 
-                for(var j=0; j< coordinate_arr.length - 10; j += 10){
+                for(var j=0; j< coordinate_arr.length - 5; j += 5){
                     // BEGIN make feature
                     var activity_element = {
                         'type': 'Feature',
