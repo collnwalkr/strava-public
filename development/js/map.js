@@ -240,7 +240,6 @@ function makeSeattleHexGrid(){
 function plotGrid(jenksbreaks){
 
     var visibility = hex_visibility ? 'visible' : 'none';
-    console.log(visibility);
 
     for(var i = 0; i < jenksbreaks.length; i++) {
         if (i > 0) {
@@ -345,13 +344,6 @@ function displaySegments(){
             "circle-opacity": 0.6
         }
     },'place-islets-archipelago-aboriginal');
-
-
-    //var temp = map.querySourceFeatures('segment-start-map', { sourceLayer: 'segment-start-map'});
-    //console.log( temp);
-    //console.log( temp.length == 0);
-    //console.log( temp.length === 0);
-
 
 }
 
@@ -524,8 +516,8 @@ function createActivityCollection(activity_data, athletes){
 }
 
 //toggleLayer('Heat Map', 'heat-map');
-//toggleLayer('Museums', 'museums');
 toggleHexLayer('Heat Map', 'hexGrid-');
+toggleSegmentLayer('Segments', 'segment-map', 'segment-start-map');
 
 function toggleHexLayer(name, id){
     var label = document.createElement('label');
@@ -564,7 +556,7 @@ function toggleHexLayer(name, id){
 
 }
 
-function toggleLayer(name, id) {
+function toggleSegmentLayer(name, id, id2) {
     var label = document.createElement('label');
 
     label.innerHTML = name;
@@ -572,7 +564,7 @@ function toggleLayer(name, id) {
     var checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
     checkbox.checked = true;
-    checkbox.id = 'heat-map-id';
+    checkbox.id = 'segment-map-id';
 
     label.appendChild(checkbox);
 
@@ -583,9 +575,11 @@ function toggleLayer(name, id) {
         if (visibility === 'visible') {
             checkbox.checked = false;
             map.setLayoutProperty(id, 'visibility', 'none');
+            map.setLayoutProperty(id2, 'visibility', 'none');
         } else {
             checkbox.checked = true;
             map.setLayoutProperty(id, 'visibility', 'visible');
+            map.setLayoutProperty(id2, 'visibility', 'visible');
         }
     };
 
