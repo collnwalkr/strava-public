@@ -206,6 +206,21 @@ function popUp(){
     segmentShowcaseTitle.appendChild(document.createTextNode("Top 5 Club Segment Effort"));
     pop_up_panel.appendChild(segmentShowcaseTitle);
 
+    segmentHeader = document.createElement('li');
+    segmentHeader.className += 'li-segment-description-tag';
+    var span_athlete = document.createElement('span');
+    span_athlete.appendChild(document.createTextNode("Athlete"));
+    span_athlete.className += "unit-name"
+    var span_time = document.createElement('span');
+    span_time.appendChild(document.createTextNode("Time"));
+    span_time.className += "unit-name"
+    var span_speed = document.createElement('span');
+    span_speed.appendChild(document.createTextNode("Speed"));
+    span_speed.className += "unit-name"
+    segmentHeader.appendChild(span_athlete);
+    segmentHeader.appendChild(span_time);
+    segmentHeader.appendChild(span_speed);
+    pop_up_panel.appendChild(segmentHeader);
 
     var showcases = current_segment_detail[9];
     for (var showcase in showcases){
