@@ -167,12 +167,12 @@ map.on('moveend', function() {
 });
 
 function segmentsInView(){
-    console.log(segment_start_collection);
 
     var features = map.querySourceFeatures('segment-start-map', {
         sourceLayer: 'segment-start-map'
     });
-    console.log(features);
+
+
 
     if (features && !first_loading) {
         segments_in_view = [];
@@ -237,6 +237,7 @@ function makeSeattleHexGrid(){
 }
 
 function plotGrid(jenksbreaks){
+
 
     for(var i = 0; i < jenksbreaks.length; i++) {
         if (i > 0) {
