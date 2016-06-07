@@ -128,7 +128,7 @@ map.on('load', function () {
     // GET ACTIVITY DATA
     d3.json('data/small_club_activity_6_4.json', function(err, activity_data) {
         // GET COORDINATES DATA
-        d3.json('data/slim_api_segment_6_4.json', function(err, segment_data) {
+        d3.json('data/slim_25_api_segment_6_4.json', function(err, segment_data) {
 
             g_activity_data = activity_data;
 
@@ -460,20 +460,40 @@ function listenForSegmentClick(){
 
         highlightSegment(current_segment_detail[10]);
 
-        zoomToSegment(end_pt_1, end_pt_2);
+        zoomToSegment(current_segment_detail[10]);
     }, false);
 }
 
-function zoomToSegment(end_pt_1, end_pt_2){
+function zoomToSegment(segment){
 
     var bound_box = [[],[]];
-    bound_box[0][0] = Math.min(end_pt_1[1], end_pt_2[1]);
-    bound_box[0][1] = Math.min(end_pt_1[0], end_pt_2[0]);
 
-    bound_box[1][0] = Math.max(end_pt_1[1], end_pt_2[1]);
-    bound_box[1][1] = Math.max(end_pt_1[0], end_pt_2[0]);
+    var lat_long = polyline.decode(segment.polyline);
+    lat_long = flip_lat_long(lat_long);
+
+
+    for(var i = 0; i < lat_long.length; i += 1){
+        var current = lat_long[i];
+        if(i === 0){
+            bound_box[0][0] = current[0];
+            bound_box[0][1] = current[1];
+
+            bound_box[1][0] = current[0];
+            bound_box[1][1] = current[1];
+
+            console.log(bound_box);
+        }
+        else{
+            bound_box[0][0] = Math.min(bound_box[0][0], current[0]);
+            bound_box[0][1] = Math.min(bound_box[0][1], current[1]);
+
+            bound_box[1][0] = Math.max(bound_box[1][0], current[0]);
+            bound_box[1][1] = Math.max(bound_box[1][1], current[1]);
+        }
+    }
 
     map.fitBounds(bound_box);
+
 
 }
 
