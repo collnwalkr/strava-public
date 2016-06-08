@@ -214,13 +214,13 @@ function popUp(){
     segmentHeader.className += 'li-segment-description-tag';
     var span_athlete = document.createElement('span');
     span_athlete.appendChild(document.createTextNode("Athlete"));
-    span_athlete.className += "segment-header";
+    span_athlete.className += "segment-header first";
     var span_time = document.createElement('span');
     span_time.appendChild(document.createTextNode("Time"));
-    span_time.className += "segment-header";
+    span_time.className += "segment-header second";
     var span_speed = document.createElement('span');
     span_speed.appendChild(document.createTextNode("Speed"));
-    span_speed.className += "segment-header";
+    span_speed.className += "segment-header third";
     segmentHeader.appendChild(span_athlete);
     segmentHeader.appendChild(span_time);
     segmentHeader.appendChild(span_speed);

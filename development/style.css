@@ -258,7 +258,7 @@ div.list-table.collapse{
 }
 
 .mapboxgl-ctrl-group.mapboxgl-ctrl {
-    margin-top: 100px;
+    margin-top: 20px;
 }
 
 button.mapboxgl-ctrl-icon.mapboxgl-ctrl-compass{
@@ -313,8 +313,43 @@ div#pop-up-panel {
 }
 
 /* SEGMENT DETAIL */
+
+#pop-up-panel .first{
+    float: left;
+}
+
+
+#pop-up-panel .second{
+    display: inline-block;
+    margin-left: 27px;
+}
+li.li-segment-description-tag{
+    font-weight:500;
+}
+#pop-up-panel .third{
+    float: right;
+}
+
+span.unit-name.third{
+    padding-right: 0;
+}
+li.li-segment-description{
+    clear: both;
+}
+
+li.li-segment-showcase-title{
+    clear: both;
+}
+span.unit-name.first {
+    padding-left: 0;
+}
+
 li.li-segment-name {
     font-size: 21px;
+}
+li.li-segment-showcase-title{
+    margin-top: 0.5em;
+    color: #FF4B00;
 }
 li.li-segment-attempts-by-athletes {
     margin-top: 0.5em;
