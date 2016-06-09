@@ -7,13 +7,13 @@ Collin Walker (cwalker2), Yitao Wang (yitaow), Si Xie (rickixie), Li Zeng (lizen
 
 
 ## Project
-![Thumbnail](thumbnail.png)
+![Thumbnail](https://github.com/CSE512-16S/fp-rickixie-taoaoao-collnwalkr-lilizeng99/blob/gh-pages/summary.png)
 
 Recent years have seen the increasing popularity of fitness tracking applications, among which Strava plays a leading role in facilitating online communities by individual connections and activity-based clubs. Given the limited visualizations Strava currently offers regarding club activities, we propose Strava Club Visualizer, an exploratory visualization for Strava users, allowing cyclists to find prospective clubs, explore new routes and meet new partners. To better understand the problem space we adopted a user-centered design process where we interviewed Strava end-users to gather our design specifications. Our implementation reduces the visual cluster and allows users to query dynamically with spatial and temporal dimensions. In addition, our visualization yielded positive feedback regarding system’s usability, visual appearance, and the capability to facilitate interpersonal relationships.
 
 [Project Page] (http://cse512-16s.github.io/fp-rickixie-taoaoao-collnwalkr-lilizeng99/) | 
 [Visualization] (http://cse512-16s.github.io/fp-rickixie-taoaoao-collnwalkr-lilizeng99/development) | 
-[Poster](https://github.com/CSE512-16S/fp-jheer-mcorrell-jhoffs/raw/master/final/poster-jheer-mcorrell-jhoffs.pdf) | 
+[Poster](https://github.com/CSE512-16S/fp-rickixie-taoaoao-collnwalkr-lilizeng99/blob/gh-pages/poster-cwalker2-yitaow-rickixie-lizeng.pdf) | 
 [Final Paper](https://github.com/CSE512-16S/fp-jheer-mcorrell-jhoffs/raw/master/final/paper-jheer-mcorrell-jhoffs.pdf)
 
 ## Acknowledgement
