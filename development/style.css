@@ -345,7 +345,8 @@ div#pop-up-panel {
 /* SEGMENT DETAIL */
 
 #pop-up-panel .first{
-    float: left;
+    min-width: 95px;
+    display: inline-block;
 }
 
 div#pop-up-panel.hidden{
@@ -366,13 +367,13 @@ i#dismiss:hover{
 
 #pop-up-panel .second{
     display: inline-block;
-    margin-left: 27px;
+    min-width: 95px;
 }
 li.li-segment-description-tag{
     font-weight:500;
 }
 #pop-up-panel .third{
-    float: right;
+    min-width: 95px;
 }
 
 span.unit-name.third{
@@ -420,9 +421,10 @@ li.li-segment-attempts-by-athletes {
   padding: 10px 10px 5px 0px;
 
 }
-.unit-name{
-  font-size:10px;
-  color:#9B9B9B;
-  font-weight:200;
-  padding: 5px 10px 10px 10px;
+
+.unit-name {
+    font-size: 10px;
+    color: #9B9B9B;
+    font-weight: 200;
+    padding: 0px 0px 21px 4px;
 }

@@ -130,7 +130,7 @@ function popUp(){
     span_ave_grade_unit.appendChild(document.createTextNode("%"));
 
     var span_ele_low = document.createElement('span');
-    span_ele_low.className += "value third"
+    span_ele_low.className += "value third";
     if (current_segment_detail[5] != "null")
         span_ele_low.appendChild(document.createTextNode(current_segment_detail[5].toFixed(1)));
 
@@ -139,11 +139,11 @@ function popUp(){
     span_ele_low_unit.appendChild(document.createTextNode("m"));
 
     segmentDescription1.appendChild(span_distance);
-    segmentDescription1.appendChild(span_distance_unit);
+    span_distance.appendChild(span_distance_unit);
     segmentDescription1.appendChild(span_ave_grade);
-    segmentDescription1.appendChild(span_ave_grade_unit);
-    segmentDescription1.appendChild(span_ele_low);    
-    segmentDescription1.appendChild(span_ele_low_unit);
+    span_ave_grade.appendChild(span_ave_grade_unit);
+    segmentDescription1.appendChild(span_ele_low);
+    span_ele_low.appendChild(span_ele_low_unit);
     pop_up_panel.appendChild(segmentDescription1);
 
     segmentDescription1Tag = document.createElement('li');
@@ -187,9 +187,9 @@ function popUp(){
     span_climb.appendChild(document.createTextNode(current_segment_detail[8]));
     span_climb.className += "value third";
     segmentDescription2.appendChild(span_ele_high);
-    segmentDescription2.appendChild(span_ele_high_unit);
+    span_ele_high.appendChild(span_ele_high_unit);
     segmentDescription2.appendChild(span_ele_diff);
-    segmentDescription2.appendChild(span_ele_diff_unit);
+    span_ele_diff.appendChild(span_ele_diff_unit);
     segmentDescription2.appendChild(span_climb);
     pop_up_panel.appendChild(segmentDescription2);
 
@@ -219,12 +219,23 @@ function popUp(){
     var span_athlete = document.createElement('span');
     span_athlete.appendChild(document.createTextNode("Athlete"));
     span_athlete.className += "segment-header first";
+
     var span_time = document.createElement('span');
     span_time.appendChild(document.createTextNode("Time"));
+    var time_unit = document.createElement('span');
+    time_unit.appendChild(document.createTextNode("seconds"));
+    time_unit.className += 'unit-name';
+    span_time.appendChild(time_unit);
     span_time.className += "segment-header second";
+
     var span_speed = document.createElement('span');
     span_speed.appendChild(document.createTextNode("Speed"));
+    var speed_unit = document.createElement('span');
+    speed_unit.appendChild(document.createTextNode("km/h"));
+    speed_unit.className += 'unit-name';
+    span_speed.appendChild(speed_unit);
     span_speed.className += "segment-header third";
+
     segmentHeader.appendChild(span_athlete);
     segmentHeader.appendChild(span_time);
     segmentHeader.appendChild(span_speed);
