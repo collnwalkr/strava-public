@@ -14,7 +14,7 @@ Recent years have seen the increasing popularity of fitness tracking application
 [Project Page] (http://cse512-16s.github.io/fp-rickixie-taoaoao-collnwalkr-lilizeng99/) | 
 [Visualization] (http://cse512-16s.github.io/fp-rickixie-taoaoao-collnwalkr-lilizeng99/development) | 
 [Poster](https://github.com/CSE512-16S/fp-rickixie-taoaoao-collnwalkr-lilizeng99/blob/gh-pages/poster-cwalker2-yitaow-rickixie-lizeng.pdf) | 
-[Final Paper](https://github.com/CSE512-16S/fp-jheer-mcorrell-jhoffs/raw/master/final/paper-jheer-mcorrell-jhoffs.pdf)
+[Final Paper](https://github.com/CSE512-16S/fp-rickixie-taoaoao-collnwalkr-lilizeng99/blob/gh-pages/paper-cwalker2-yitaow-rickixie-lizeng.pdf)
 
 ## Acknowledgement
 We want to thank Scott Miller and Andrew Pryhuber for providing design insights and suggestions for the visualization. Thanks to our instructors Jeffrey Heer, Michael Correll and Jane Hoffswell for providing instructions and reviews for our design.
