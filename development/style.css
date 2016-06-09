@@ -348,6 +348,21 @@ div#pop-up-panel {
     float: left;
 }
 
+div#pop-up-panel.hidden{
+    display: none;
+}
+
+i.dismiss.fa.fa-times{
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    font-size: 10px;
+    color: #828282;
+}
+
+i#dismiss:hover{
+    cursor:pointer;
+}
 
 #pop-up-panel .second{
     display: inline-block;

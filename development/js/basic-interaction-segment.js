@@ -1,7 +1,5 @@
 (function(){
 
-
-
     var set_toggle_segment_table = function(){
         var segment_list_chevron_right = document.getElementById('list-activity-chevron-right-s');
         var segment_list_chevron_down = document.getElementById('list-activity-chevron-down-s');
@@ -22,7 +20,6 @@
     };
 
     set_toggle_segment_table();
-
 
 }());
 

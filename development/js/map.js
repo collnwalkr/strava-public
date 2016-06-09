@@ -94,7 +94,7 @@ var display_top_athletes = function(sorted_athletes){
     for(var i = 0; i < sorted_athletes.length; i++){
 
         // first and last name
-        var name = sorted_athletes[i][0].athlete.firstname + ' ' + sorted_athletes[i][0].athlete.lastname;
+        var name = sorted_athletes[i][0].athlete.firstname + ' ' + sorted_athletes[i][0].athlete.lastname.charAt(0) + '.';
         // number of activities
         var athlete_count = sorted_athletes[i][1];
 

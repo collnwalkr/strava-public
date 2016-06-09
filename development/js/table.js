@@ -78,6 +78,7 @@ function render_segment_tb(segments_in_view){
     sorted_current_segment = sorted_current_segment.slice(0,30);
     display_top_segments(sorted_current_segment);
     click_table_row();
+
 }
 
 
@@ -88,9 +89,12 @@ function popUp(){
         pop_up_panel.removeChild(pop_up_panel.firstChild);
     }
     // Segment Name
-    x = document.createElement('span');
-    x.className += 'dismiss';
+    x = document.createElement('i');
+    x.className += 'dismiss fa fa-times';
+    x.id += 'dismiss';
     pop_up_panel.appendChild(x);
+
+    set_dismiss();
 
     segmentName = document.createElement('li');
     segmentName.className += 'li-segment-name';
@@ -255,15 +259,34 @@ function popUp(){
         pop_up_panel.appendChild(li_showcase);
 
     }
+
 }
 
 function hightLightEvent(){
     var event = new Event('highlight',{"bubbles":true, "cancelable":false});
     document.dispatchEvent(event);
+    var pop_up = document.getElementById('pop-up-panel');
+
+    console.log('click');
+    pop_up.classList.remove('hidden');
+
 }
+
+var set_dismiss = function(){
+    var dismiss_icon = document.getElementById('dismiss');
+    var pop_up = document.getElementById('pop-up-panel');
+
+    dismiss_icon.onclick = function(e){
+        pop_up.classList.add('hidden');
+    };
+
+};
+
+
 
 function click_table_row(){
     var segment_entires = document.getElementsByClassName('li-segment-s');
+
     for (var i = 0; i < segment_entires.length; i++) {
         segment_entires[i].onclick = function(e) {
 
