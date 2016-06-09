@@ -312,6 +312,36 @@ div#pop-up-panel {
     padding: 20px;
 }
 
+
+/* LEGEND */
+.legend {
+    display: flex;
+    margin-top: -23px;
+    margin-bottom: 24px;
+    margin-left: 116px;
+}
+.legend-box{
+    display: inline;
+    min-height: 10px;
+    width:10px;
+    margin:0;
+}
+#legend-1{  background-color:#ffffcc;  }
+#legend-2{  background-color:#ffeda0;  }
+#legend-3{  background-color:#fed976;  }
+#legend-4{  background-color:#feb24c;  }
+#legend-5{  background-color:#fd8d3c;  }
+#legend-6{  background-color:#fc4e2a;  }
+#legend-7{  background-color:#e31a1c;  }
+#legend-8{  background-color:#bd0026;  }
+#legend-9{  background-color:#800026;  }
+
+.legend-label {
+    margin: -2px 6px;
+    font-size: 10px;
+    color: #616161;
+}
+
 /* SEGMENT DETAIL */
 
 #pop-up-panel .first{
