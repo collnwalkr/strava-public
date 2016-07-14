@@ -3,9 +3,9 @@ Strava Club Visualizer: Club Heatmap and Segment Explorer
 
 ## Team Members
 
-Collin Walker ([@collnwalkr](https://github.com/collnwalkr), Yitao Wang ([@Taoaoao](https://github.com/Taoaoao)), Si Xie ([@rickixie](https://github.com/rickixie)),Li Zeng ([@lilizeng99](https://github.com/lilizeng99))
+Collin Walker ([@collnwalkr](https://github.com/collnwalkr)), Yitao Wang ([@Taoaoao](https://github.com/Taoaoao)), Si Xie ([@rickixie](https://github.com/rickixie)), Li Zeng ([@lilizeng99](https://github.com/lilizeng99))
 
-Note: This repo is a fork that has been expunged of private information
+Note: This repo is a fork of the original that has been expunged of private information
 
 ## Project
 ![Thumbnail](https://github.com/CSE512-16S/fp-rickixie-taoaoao-collnwalkr-lilizeng99/blob/gh-pages/summary.png)
